@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link data-th-href="@{./css/output.css}" rel="stylesheet" />
+
+        <title>SCM</title>
+    </head>
+    <body>
+        <nav class="w-full h-12 bg-slate-100 shadow-md flex flex-col align-middle justify-center">
+            <div class="ml-2 text-3xl text-slate-900">SCM</div>
+        </nav>
+        <main>
+            <p>This is about page</p>
+        </main>
+
+        <div class="host-tag-about border-b-2 bg-slate-300" data-th-insert="~{base :: sampleFragment('one', 'two')}">
+            HOST TAG 1
+        </div>
+        <div
+            class="host-tag-about border-b-2 bg-slate-300"
+            data-th-replace="~{base :: sampleFragment('sample', 'fragment')}"
+        >
+            HOST TAG 2
+        </div>
+    </body>
+</html>
