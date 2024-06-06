@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,15 +27,37 @@ public class WebPageController {
 
 	// about
 	@RequestMapping("/about")
-	public ModelAndView about(Model model) {
+	public ModelAndView about() {
 		log.info("Displaying about page.");
 		return new ModelAndView("about", new HashMap<>());
 	}
 
 	// services
 	@RequestMapping("/services")
-	public ModelAndView services(Model model) {
+	public ModelAndView services() {
 		log.info("Displaying services page.");
 		return new ModelAndView("services", new HashMap<>());
 	}
+
+	// contact
+	@RequestMapping("/contact")
+	public ModelAndView contact() {
+		log.info("Displaying contact page.");
+		return new ModelAndView("contact", new HashMap<>());
+	}
+
+	// login
+	@RequestMapping("/login")
+	public ModelAndView login() {
+		log.info("Displaying login page.");
+		return new ModelAndView("login", new HashMap<>());
+	}
+
+	// signup
+	@RequestMapping("/signup")
+	public ModelAndView signup() {
+		log.info("Displaying signup page.");
+		return new ModelAndView("signup", new HashMap<>());
+	}
+
 }

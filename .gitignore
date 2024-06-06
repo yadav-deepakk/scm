@@ -32,8 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-.mvn/
+.mvn
 mvnw
 mvnw.cmd
-node_modules/
+node_modules
 tailwind.config.js

@@ -1,27 +1,35 @@
-<html>
-    <head>
-        <title>SCM</title>
-        <link data-th-href="@{./css/output.css}" rel="stylesheet" />
-    </head>
-    <body>
-        <div class="mx-auto mt-4 px-4 py-4 bg-gray-300 rounded-lg border-teal-700 border-t-4 w-1/2 space-y-2">
-            <p class="text-3xl text-slate-800">Project Name: <span data-th-text="${projectName}"></span></p>
-            <p class="text-xml text-slate-700">
-                <a data-th-href="${githubLink}" target="_blank">
-                    GitHub UserName <span class="underline" data-th-text="${githubUsername}"></span>
-                </a>
-            </p>
-            <p class="text-gray-600">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid doloribus, aliquam ad non eaque iure
-                deleniti dignissimos mollitia nostrum alias temporibus minima, consequatur, illum eum natus quaerat at
-                delectus pariatur.
-            </p>
-            <button
-                onclick="alert('Button was clicked !!')"
-                class="px-4 py-2 text-white rounded-xl border-2 bg-cyan-800 drop-shadow-lg border-teal-700 hover:bg-cyan-700"
-            >
-                CLICK ME
-            </button>
-        </div>
-    </body>
-</html>
+<!DOCTYPE html>
+<th:block data-th-replace="~{base :: baseHTML(~{::link}, ~{::title}, ~{::#content}, ~{::script})}">
+    <link rel="stylesheet">
+    <title>SCM || Home</title>
+    <div id="content">
+        <section>
+            <div class="mx-auto mt-4 px-4 py-4 bg-gray-300 rounded-lg border-teal-700 border-t-4 w-1/2 space-y-2">
+                <p class="text-3xl text-slate-800">Project Name: <span data-th-text="${projectName}"></span></p>
+                <p class="text-xml text-slate-700">
+                    <a data-th-href="${githubLink}" target="_blank">
+                        GitHub UserName <span class="underline" data-th-text="${githubUsername}"></span>
+                    </a>
+                </p>
+                <p class="text-gray-600">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid doloribus, aliquam ad non eaque
+                    iure deleniti dignissimos mollitia nostrum alias temporibus minima, consequatur, illum eum natus
+                    quaerat at delectus pariatur.
+                </p>
+                <button
+                    onclick="alert('Button was clicked !!')"
+                    class="px-4 py-2 text-white rounded-xl border-2 bg-cyan-800 drop-shadow-lg border-teal-700 hover:bg-cyan-700"
+                >
+                    CLICK ME
+                </button>
+            </div>
+        </section>
+    </div>
+
+
+    <script>
+        console.log("This is Home Page!!!")
+    </script>
+
+</th:block>
+

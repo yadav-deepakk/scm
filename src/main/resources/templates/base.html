@@ -1,6 +1,30 @@
-<!-- creating a fragment -->
-<div class="sample-html-fragment" data-th-fragment="sampleFragment(x, y)">
-    <p>This is a fragment present in base html file.</p>
-    <p>Value got for x is : <span data-th-text="${x}"></span></p>
-    <p>Value got for y is : <span data-th-text="${y}"></span></p>
-</div>
+<!----------------------------------------------------------->
+<!--  This base will be used by other pages as fragment,   -->
+<!-- and link, title, pageContent, scripts will be passed. -->
+<!----------------------------------------------------------->
+<!DOCTYPE html>
+<html lang="en" data-th-fragment="baseHTML(link, title, pageContent, script)">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link data-th-href="@{./css/output.css}" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+        <!-----------------------------------------------------
+            below tags will be replaced with link and title 
+        ------------------------------------------------------->
+        <th:block data-th-replace="${link}"></th:block>
+        <th:block data-th-replace="${title}"></th:block>
+    </head>
+    <body>
+        <!-----------------------------------------------------
+            below tags will be replaced with navbar fragment,
+            pageContent and script being passed into baseHTML(). 
+        ------------------------------------------------------->
+        <th:block data-th-replace="~{fragments/navbar.html :: navbar}"></th:block>
+        <th:block data-th-insert="${pageContent}"></th:block>
+        <th:block data-th-replace="${script}"></th:block>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+        <script data-th-src="@{./scripts/script.js}"></script>
+    </body>
+</html>

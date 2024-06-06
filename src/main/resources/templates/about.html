@@ -1,28 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-th-replace="~{base :: baseHTML(~{:: link}, ~{:: title}, ~{:: #content}, ~{::script})}">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link data-th-href="@{./css/output.css}" rel="stylesheet" />
-
-        <title>SCM</title>
+        <title>SCM || About</title>
+        <link rel="stylesheet" href="" />
     </head>
     <body>
-        <nav class="w-full h-12 bg-slate-100 shadow-md flex flex-col align-middle justify-center">
-            <div class="ml-2 text-3xl text-slate-900">SCM</div>
-        </nav>
-        <main>
-            <p>This is about page</p>
-        </main>
-
-        <div class="host-tag-about border-b-2 bg-slate-300" data-th-insert="~{base :: sampleFragment('one', 'two')}">
-            HOST TAG 1
-        </div>
-        <div
-            class="host-tag-about border-b-2 bg-slate-300"
-            data-th-replace="~{base :: sampleFragment('sample', 'fragment')}"
-        >
-            HOST TAG 2
-        </div>
+        <div id="content">This is About page</div>
+        <script>
+            console.log("About Page!!");
+        </script>
     </body>
 </html>
