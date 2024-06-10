@@ -5,38 +5,75 @@
         <link rel="stylesheet" href="" />
     </head>
     <body>
-        <div
-            id="content"
-            class="my-6 mx-auto px-8 py-4 w-2/5 h-fit border-y-4 rounded-lg bg-slate-100 border-blue-600 dark:border-blue-900 dark:bg-slate-800 dark:text-slate-300"
-        >
-            <div class="mb-4 text-xl text-center">Login</div>
-            <form action="">
-                <div class="relative mb-2">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                        <svg
-                            class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor"
-                            viewBox="0 0 20 16"
-                        >
-                            <path
-                                d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"
-                            />
-                            <path
-                                d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"
-                            />
-                        </svg>
+        <div id="content" class="w-full grid grid-cols-12">
+            <div class="col-span-12 md:col-span-2 lg:col-span-3"></div>
+            <div class="col-span-12 md:col-span-8 lg:col-span-6">
+                <form
+                    action=""
+                    class="w-4/5 mx-auto my-6 p-4 bg-white space-y-4 border-t-[10px] border-blue-600 rounded-2xl shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-blue-800"
+                >
+                    <h5 class="text-2xl font-medium text-gray-900 dark:text-white">Login to our platform</h5>
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Your email
+                        </label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="name@email.com"
+                            required
+                        />
                     </div>
-                    <input
-                        type="text"
-                        id="input-group-1"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="name@flowbite.com"
-                    />
-                </div>
-            </form>
+                    <div>
+                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            >Your password</label
+                        >
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="••••••••"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            required
+                        />
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input
+                                    id="remember"
+                                    type="checkbox"
+                                    value=""
+                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                                    required
+                                />
+                            </div>
+                            <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                >Remember me</label
+                            >
+                        </div>
+                        <a href="#" class="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
+                            >Lost Password?</a
+                        >
+                    </div>
+                    <button
+                        type="submit"
+                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        Login to your account
+                    </button>
+                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                        Not registered?
+                        <a data-th-href="@{/signup}" class="text-blue-700 hover:underline dark:text-blue-500">
+                            Create account
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
+
         <script>
             console.log("login Page!!");
         </script>
