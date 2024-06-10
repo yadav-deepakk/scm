@@ -5,12 +5,24 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+import com.example.scm.entities.User;
+import com.example.scm.forms.LoginForm;
+import com.example.scm.forms.SignUpForm;
+import com.example.scm.services.servicesImpl.UserServiceImpl;
 
 @RestController
 public class WebPageController {
+
+	@Autowired
+	private UserServiceImpl userService;
 
 	Logger log = LoggerFactory.getLogger(WebPageController.class);
 
@@ -50,14 +62,52 @@ public class WebPageController {
 	@RequestMapping("/login")
 	public ModelAndView login() {
 		log.info("Displaying login page.");
-		return new ModelAndView("login", new HashMap<>());
+		ModelAndView modelAndView = new ModelAndView("login");
+		LoginForm loginFormData = new LoginForm();
+		modelAndView.addObject("loginFormData", loginFormData);
+		return modelAndView;
 	}
 
 	// signup
 	@RequestMapping("/signup")
 	public ModelAndView signup() {
 		log.info("Displaying signup page.");
-		return new ModelAndView("signup", new HashMap<>());
+		SignUpForm signupFormData = new SignUpForm();
+		ModelAndView modelAndView = new ModelAndView("signup");
+		modelAndView.addObject("signupFormData", signupFormData);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/register-user", method = RequestMethod.POST)
+	public ModelAndView registerUserHandler(@ModelAttribute SignUpForm signUpFormData) {
+		log.info("Processing User Registration.");
+
+		// validation of form.
+
+		// save user to database if data is valid.
+		User user = User.builder()
+				.name(signUpFormData.getName())
+				.email(signUpFormData.getEmail())
+				.password(signUpFormData.getPassword())
+				.phoneNumber(signUpFormData.getPhoneNumber())
+				.about(signUpFormData.getAbout())
+				.profilePicture("default.png")
+				.build();
+
+		userService.saveUser(user);
+
+		// redirect user to home page
+		RedirectView homePageRedirection = new RedirectView("home");
+		return new ModelAndView(homePageRedirection);
+
+	}
+
+	@RequestMapping(value = "/login-handler", method = RequestMethod.POST)
+	public ModelAndView loginUserHandler(@ModelAttribute LoginForm loginFormData) {
+		log.info("Processing User Login.");
+
+		RedirectView homePageRedirection = new RedirectView("home");
+		return new ModelAndView(homePageRedirection);
 	}
 
 }

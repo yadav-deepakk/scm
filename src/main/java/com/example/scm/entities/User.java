@@ -36,8 +36,8 @@ public class User {
     @Column(length = 1000)
     private String about;
     @Column(length = 1000)
-    private String profilePicture;
     private String phoneNumber;
+    private String profilePicture;
 
     @Builder.Default
     private boolean enabled = false;
