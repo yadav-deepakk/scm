@@ -8,6 +8,8 @@ import com.example.scm.enums.Provider;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -45,6 +47,8 @@ public class User {
     private boolean phoneVerified = false;
     @Builder.Default
     private boolean emailVerified = false;
+
+    @Enumerated(EnumType.STRING)
     @Builder.Default
     private Provider providers = Provider.SELF;
     private String providerUserId;

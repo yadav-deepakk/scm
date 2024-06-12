@@ -14,9 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.scm.entities.User;
+import com.example.scm.enums.MessageType;
+import com.example.scm.enums.Provider;
 import com.example.scm.forms.LoginForm;
 import com.example.scm.forms.SignUpForm;
+import com.example.scm.models.Message;
 import com.example.scm.services.servicesImpl.UserServiceImpl;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 public class WebPageController {
@@ -79,7 +84,7 @@ public class WebPageController {
 	}
 
 	@RequestMapping(value = "/register-user", method = RequestMethod.POST)
-	public ModelAndView registerUserHandler(@ModelAttribute SignUpForm signUpFormData) {
+	public ModelAndView registerUserHandler(@ModelAttribute SignUpForm signUpFormData, HttpSession session) {
 		log.info("Processing User Registration.");
 
 		// validation of form.
@@ -92,14 +97,23 @@ public class WebPageController {
 				.phoneNumber(signUpFormData.getPhoneNumber())
 				.about(signUpFormData.getAbout())
 				.profilePicture("default.png")
+				.providers(Provider.SELF)
 				.build();
 
 		userService.saveUser(user);
 
-		// redirect user to home page
-		RedirectView homePageRedirection = new RedirectView("home");
-		return new ModelAndView(homePageRedirection);
+		Message msg = Message
+				.builder()
+				.messageContent("Registration successful.")
+				.messageType(MessageType.green)
+				.build();
 
+		// adding attribute to the session.
+		session.setAttribute("message", msg);
+
+		// redirect user to same page
+		RedirectView signupPage = new RedirectView("signup");
+		return new ModelAndView(signupPage);
 	}
 
 	@RequestMapping(value = "/login-handler", method = RequestMethod.POST)

@@ -13,7 +13,14 @@
                     data-th-object="${signupFormData}"
                     class="w-4/5 mx-auto my-6 p-4 bg-white space-y-4 border-t-[10px] border-blue-600 rounded-2xl shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-blue-800"
                     method="post"
+                    novalidate
                 >
+                    <!-- Message will be displayed here -->
+                    <div data-th-if="${session.message}">
+                        <th:block data-th-replace="fragments/messages::messageFragment"> </th:block>
+                        <th:block data-th-text="${@sessionUtilityBean.removeMessage()}"></th:block>
+                    </div>
+
                     <div>
                         <p class="text-2xl text-slate-700 dark:text-slate-200">Signup here</p>
                         <p class="text-md text-slate-400 dark:text-slate-600">
