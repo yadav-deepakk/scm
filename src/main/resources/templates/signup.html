@@ -9,7 +9,7 @@
             <div class="col-span-12 md:col-span-2 lg:col-span-3"></div>
             <div class="col-span-12 md:col-span-8 lg:col-span-6">
                 <form
-                    data-th-action="@{./register-user}"
+                    data-th-action="@{./signup-handler}"
                     data-th-object="${signupFormData}"
                     class="w-4/5 mx-auto my-6 p-4 bg-white space-y-4 border-t-[10px] border-blue-600 rounded-2xl shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-blue-800"
                     method="post"
@@ -17,8 +17,8 @@
                 >
                     <!-- Message will be displayed here -->
                     <div data-th-if="${session.message}">
-                        <th:block data-th-replace="fragments/messages::messageFragment"> </th:block>
-                        <th:block data-th-text="${@sessionUtilityBean.removeMessage()}"></th:block>
+                        <th:block data-th-replace="~{fragments/messages::messageFragment}"> </th:block>
+                        <th:block data-th-text="${@sessionUtilityBean.removeMessage()}"> </th:block>
                     </div>
 
                     <div>
@@ -42,6 +42,11 @@
                             required
                         />
                     </div>
+                    <span
+                        data-th-if="${#fields.hasErrors('name')}"
+                        data-th-errors="*{name}"
+                        class="text-sm font-medium tracking-wide text-red-500 dark:text-red-800"
+                    ></span>
 
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -49,13 +54,16 @@
                         </label>
                         <input
                             type="email"
-                            name="email"
-                            id="email"
                             data-th-field="*{email}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                             placeholder="eg. name@email.com"
                             required
                         />
+                        <span
+                            data-th-if="${#fields.hasErrors('email')}"
+                            data-th-errors="*{email}"
+                            class="text-sm font-medium tracking-wide text-red-500 dark:text-red-800"
+                        ></span>
                     </div>
 
                     <div>
@@ -64,13 +72,16 @@
                         </label>
                         <input
                             type="password"
-                            name="password"
-                            id="password"
                             data-th-field="*{password}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                             placeholder="••••••••"
                             required
                         />
+                        <span
+                            data-th-if="${#fields.hasErrors('password')}"
+                            data-th-errors="*{password}"
+                            class="text-sm font-medium tracking-wide text-red-500 dark:text-red-800"
+                        ></span>
                     </div>
 
                     <div>
@@ -79,13 +90,16 @@
                         </label>
                         <input
                             type="tel"
-                            name="phone"
-                            id="phone"
                             data-th-field="*{phoneNumber}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                             placeholder="eg. 9991112220"
                             required
                         />
+                        <span
+                            data-th-if="${#fields.hasErrors('phoneNumber')}"
+                            data-th-errors="*{phoneNumber}"
+                            class="text-sm font-medium tracking-wide text-red-500 dark:text-red-800"
+                        ></span>
                     </div>
 
                     <div>
@@ -93,13 +107,16 @@
                             About
                         </label>
                         <textarea
-                            name="about"
-                            id="about"
                             data-th-field="*{about}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                             rows="4"
                             placeholder="Tell us a bit about you."
                         ></textarea>
+                        <span
+                            data-th-if="${#fields.hasErrors('about')}"
+                            data-th-errors="*{about}"
+                            class="text-sm font-medium tracking-wide text-red-500 dark:text-red-800"
+                        ></span>
                     </div>
 
                     <div class="text-center">

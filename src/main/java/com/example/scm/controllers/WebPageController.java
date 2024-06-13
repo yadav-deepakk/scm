@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import com.example.scm.models.Message;
 import com.example.scm.services.servicesImpl.UserServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @RestController
 public class WebPageController {
@@ -83,11 +85,31 @@ public class WebPageController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/register-user", method = RequestMethod.POST)
-	public ModelAndView registerUserHandler(@ModelAttribute SignUpForm signUpFormData, HttpSession session) {
+	/*
+	 * ==========================================
+	 * Form Submit Handlers - singup and login
+	 * ==========================================
+	 */
+	@RequestMapping(value = "/signup-handler", method = RequestMethod.POST)
+	public ModelAndView registerUserHandler(
+			@Valid @ModelAttribute("signupFormData") SignUpForm signUpFormData,
+			BindingResult rBindingResult,
+			HttpSession session) {
 		log.info("Processing User Registration.");
 
-		// validation of form.
+		String message = "Registration successful.";
+		MessageType type = MessageType.green;
+
+		if (rBindingResult.hasErrors()) {
+			log.info("Form has errors");
+			Message msg = Message
+					.builder()
+					.messageContent("You have errors, please correct and resubmit!")
+					.messageType(MessageType.red)
+					.build();
+			session.setAttribute("message", msg);
+			return new ModelAndView("/signup");
+		}
 
 		// save user to database if data is valid.
 		User user = User.builder()
@@ -104,16 +126,11 @@ public class WebPageController {
 
 		Message msg = Message
 				.builder()
-				.messageContent("Registration successful.")
-				.messageType(MessageType.green)
+				.messageContent(message)
+				.messageType(type)
 				.build();
-
-		// adding attribute to the session.
 		session.setAttribute("message", msg);
-
-		// redirect user to same page
-		RedirectView signupPage = new RedirectView("signup");
-		return new ModelAndView(signupPage);
+		return new ModelAndView(new RedirectView("/signup"));
 	}
 
 	@RequestMapping(value = "/login-handler", method = RequestMethod.POST)
