@@ -10,8 +10,21 @@
             <div class="col-span-12 md:col-span-8 lg:col-span-6">
                 <form
                     method="post"
+                    data-th-action="@{/authenticate}"
                     class="w-4/5 mx-auto my-6 p-4 bg-white space-y-4 border-t-[10px] border-blue-600 rounded-2xl shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-blue-800"
+                    novalidate
                 >
+                    <div th:if="${param.error}">
+                        <th:block data-th-replace="~{fragments/messages::errorMessageFragment(~{::#error-message})}">
+                            <p id="error-message">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+                        </th:block>
+                    </div>
+                    <div th:if="${param.logout}">
+                        <th:block data-th-replace="~{fragments/messages::successMessageFragment(~{::#logout-message})}">
+                            <p id="logout-message">You have been logged out.</p>
+                        </th:block>
+                    </div>
+
                     <h5 class="text-2xl font-medium text-gray-900 dark:text-white">Login to our platform</h5>
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
