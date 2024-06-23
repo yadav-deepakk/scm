@@ -19,6 +19,9 @@ public class SecurityConfig {
     @Autowired
     private UserServiceImpl userDetailsService;
 
+    @Autowired
+    private OAuth2LoginSuccess oAuthSuccessHandler;
+
     @Bean
     public DaoAuthenticationProvider authManager() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -44,6 +47,8 @@ public class SecurityConfig {
                     .anyRequest().permitAll();
         });
 
+        // http.formLogin(Customizer.withDefaults());
+
         http.formLogin(formLoginConfig -> {
             formLoginConfig
                     .loginPage("/login")
@@ -55,8 +60,18 @@ public class SecurityConfig {
 
         http.logout(logoutConfig -> {
             logoutConfig
-                    .logoutUrl("/do-logout")
+                    .logoutUrl("/logout")
                     .logoutSuccessUrl("/login?logout=true");
+        });
+
+        // http.oauth2Login(Customizer.withDefaults());
+        // href="/oauth2/authorization/github" -> github signin
+        // href="/oauth2/authorization/google" -> google signin
+
+        http.oauth2Login(oauth -> {
+            oauth
+                    .loginPage("/login")
+                    .successHandler(oAuthSuccessHandler);
         });
 
         return http.build();

@@ -77,11 +77,57 @@
                     >
                         Login to your account
                     </button>
-                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                        Not registered?
-                        <a data-th-href="@{/signup}" class="text-blue-700 hover:underline dark:text-blue-500">
-                            Create account
+
+                    <!-- Social Login Options -->
+                    <div class="text-center space-y-3">
+                        <div class="inline-flex items-center justify-center w-full">
+                            <hr class="w-64 h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+                            <span
+                                class="absolute px-3 font-medium text-slate-500 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-800"
+                            >
+                                Signin Options
+                            </span>
+                        </div>
+                        <a
+                            data-th-href="@{/oauth2/authorization/google}"
+                            data-tooltip-target="tooltip-google"
+                            data-tooltip-placement="top"
+                            type="button"
+                        >
+                            <img data-th-src="@{/images/google-logo.png}" class="w-6 h-6" />
                         </a>
+                        <div
+                            id="tooltip-google"
+                            role="tooltip"
+                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+                        >
+                            Singin with Google
+                        </div>
+
+                        <a
+                            data-th-href="@{/oauth2/authorization/github}"
+                            data-tooltip-target="tooltip-github"
+                            data-tooltip-placement="top"
+                            type="button"
+                            class="ml-3"
+                        >
+                            <img data-th-src="@{/images/github-logo.png}" class="w-6 h-6" />
+                        </a>
+                        <div
+                            id="tooltip-github"
+                            role="tooltip"
+                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+                        >
+                            Singin with Github
+                        </div>
+                        <!-- Social Login Ends -->
+
+                        <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                            Not registered?
+                            <a data-th-href="@{/signup}" class="text-blue-700 hover:underline dark:text-blue-500">
+                                Create account
+                            </a>
+                        </div>
                     </div>
                 </form>
             </div>
