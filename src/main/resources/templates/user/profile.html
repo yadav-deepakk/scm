@@ -6,12 +6,12 @@
         <title>SCM || Profile</title>
     </head>
     <body>
-        <h3 data-th-text="${username}"></h3>
         <p>profile page works!</p>
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt facilis eum voluptates quos quo molestias sint
-            praesentium explicabo similique, sequi repudiandae distinctio accusantium voluptatibus? Earum illum
-            repudiandae necessitatibus veritatis obcaecati.
-        </p>
+        <th:block data-th-if="${loggedInUser}">
+            <h3 data-th-text="${loggedInUser}"></h3>
+            <h4>User is logged in</h4>
+            <span data-th-text="${loggedInUser.email}"></span><br />
+            <span data-th-text="${loggedInUser.enabled}"></span>
+        </th:block>
     </body>
 </html>
