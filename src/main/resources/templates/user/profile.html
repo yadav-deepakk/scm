@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>SCM || Profile</title>
-    </head>
-    <body>
+<th:block data-th-replace="~{base :: baseHTML(~{::link}, ~{::title}, ~{::#content}, ~{::script})}">
+    <link rel="stylesheet" />
+    <title>SCM || Profile</title>
+    <th:block id="content"> Profile Page </th:block>
+
+    <!-- <th:block id="content">
         <p>profile page works!</p>
         <th:block data-th-if="${loggedInUser}">
             <h3 data-th-text="${loggedInUser}"></h3>
@@ -13,5 +12,8 @@
             <span data-th-text="${loggedInUser.email}"></span><br />
             <span data-th-text="${loggedInUser.enabled}"></span>
         </th:block>
-    </body>
-</html>
+    </th:block> -->
+    <script>
+        console.log("This is Home Page!!!");
+    </script>
+</th:block>

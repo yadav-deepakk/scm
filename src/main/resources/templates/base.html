@@ -7,10 +7,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/x-icon" data-th-href="@{./images/favicon.ico}" />
+        <link rel="icon" type="image/x-icon" data-th-href="@{/images/favicon.ico}" />
 
         <!-- tailwindcss output -->
-        <link data-th-href="@{./css/output.css}" rel="stylesheet" />
+        <link data-th-href="@{/css/output.css}" rel="stylesheet" />
 
         <!-- flowbite css -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
@@ -32,14 +32,15 @@
     </head>
     <body class="bg-slate-50 dark:bg-slate-900">
         <!-----------------------------------------------------
-            below tags will be replaced with navbar fragment,
+            below tags will be replaced with navbar, sidebar
             pageContent and script being passed into baseHTML.
         ------------------------------------------------------->
         <th:block data-th-replace="~{fragments/navbar.html :: navbar}"></th:block>
+        <th:block data-th-if="${loggedInUser}" data-th-replace="~{fragments/sidebar.html :: sidebar}"></th:block>
         <th:block data-th-insert="${pageContent}"></th:block>
         <th:block data-th-replace="${script}"></th:block>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-        <script data-th-src="@{./scripts/script.js}"></script>
+        <script data-th-src="@{/scripts/script.js}"></script>
     </body>
 </html>
