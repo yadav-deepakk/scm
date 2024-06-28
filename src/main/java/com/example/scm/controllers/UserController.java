@@ -1,7 +1,5 @@
 package com.example.scm.controllers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,10 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
 
-    Logger log = LoggerFactory.getLogger(UserController.class);
-
     @RequestMapping("/profile")
     public String profile() {
         return "user/profile";
+    }
+
+    @RequestMapping("/dashboard")
+    public String dashboard() {
+        return "user/dashboard";
+    }
+
+    @RequestMapping("/add-contact")
+    public String addContact() {
+        return "user/add-contact";
     }
 }
