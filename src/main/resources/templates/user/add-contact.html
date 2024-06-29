@@ -7,28 +7,28 @@
             <div class="col-span-12 md:col-span-2 lg:col-span-3"></div>
             <div class="col-span-12 md:col-span-8 lg:col-span-6">
                 <form
-                    class="mx-auto my-4 w-[95%] md:w-4/5 p-6 bg-white border border-gray-200 rounded-lg shadow space-y-4 dark:bg-gray-800 dark:border-gray-700"
+                    class="mx-auto mt-4 mb-10 w-[95%] md:w-4/5 p-6 bg-white border border-gray-200 rounded-lg shadow space-y-4 dark:bg-gray-800 dark:border-gray-700"
                 >
                     <div>
-                        <p class="text-2xl text-slate-700 dark:text-slate-200">Add Contact</p>
-                        <p class="text-md text-slate-400 dark:text-slate-600">
+                        <p class="text-xl text-slate-700 font-semibold dark:text-slate-200">Add Contact</p>
+                        <p class="text-sm text-slate-500">
                             The contact will be stored on cloud, you can direct mail this client using SCM.
                         </p>
                     </div>
 
                     <!-- name -->
                     <div>
-                        <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                            Name</label
-                        >
+                        <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                            Contact Name
+                        </label>
                         <div class="relative">
                             <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                 <i class="fa-solid fa-user w-4 h-4 text-slate-800 dark:text-white"></i>
                             </div>
                             <input
                                 type="text"
-                                id="email"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                id="name"
+                                class="block w-full ps-10 p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Enter Name"
                             />
                         </div>
@@ -37,8 +37,8 @@
                     <!-- email -->
                     <div>
                         <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                            Email</label
-                        >
+                            Contact Email
+                        </label>
                         <div class="relative">
                             <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                 <i class="fa-solid fa-envelope w-4 h-4 text-slate-800 dark:text-white"></i>
@@ -46,20 +46,132 @@
                             <input
                                 type="text"
                                 id="email"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="block w-full ps-10 p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="name@email.com"
                             />
                         </div>
                     </div>
 
-                    <!-- email -->
-                    <div></div>
+                    <!-- phone -->
+                    <div>
+                        <label for="phone" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                            Contact Phone
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                <i class="fa-solid fa-phone w-4 h-4 text-slate-800 dark:text-white"></i>
+                            </div>
+                            <input
+                                type="text"
+                                id="phone"
+                                class="block w-full ps-10 p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="+91 1112223330"
+                            />
+                        </div>
+                    </div>
 
-                    <!-- email -->
-                    <div></div>
+                    <!-- address -->
+                    <div>
+                        <label for="address" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                            Contact address
+                        </label>
+                        <textarea
+                            id="address"
+                            rows="4"
+                            class="block w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Add address of contact"
+                        ></textarea>
+                    </div>
 
-                    <!-- email -->
-                    <div></div>
+                    <!-- description -->
+                    <div>
+                        <label for="description" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                            Contact description
+                        </label>
+                        <textarea
+                            id="description"
+                            rows="4"
+                            class="block w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Write something about contact"
+                        ></textarea>
+                    </div>
+
+                    <!-- social links -->
+                    <div class="grid grid-cols-12 gap-2">
+                        <div class="col-span-12 md:col-span-6">
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                    <i class="fa-solid fa-earth-americas w-4 h-4 text-slate-800 dark:text-white"></i>
+                                </div>
+                                <input
+                                    type="text"
+                                    id="website-link"
+                                    class="block w-full ps-10 p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="https://contact.website.com/"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-12 md:col-span-6">
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                    <i class="fa-brands fa-linkedin w-4 h-4 text-slate-800 dark:text-white"></i>
+                                </div>
+                                <input
+                                    type="text"
+                                    id="linkedin-link"
+                                    class="block w-full ps-10 p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="https://linkedin.com/username"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact image -->
+                    <div>
+                        <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">
+                            Upload Image
+                        </label>
+                        <input
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            aria-describedby="user_avatar_help"
+                            id="user_avatar"
+                            type="file"
+                        />
+                    </div>
+
+                    <!-- Mark favourite -->
+                    <div class="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+                        <input
+                            id="isFavourite"
+                            type="checkbox"
+                            value=""
+                            name="bordered-checkbox"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        />
+                        <label
+                            for="isFavourite"
+                            class="w-full py-3 ms-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        >
+                            Mark as favourite
+                        </label>
+                    </div>
+
+                    <!-- Submit/ Reset buttons -->
+                    <div class="text-center">
+                        <button
+                            type="submit"
+                            class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 dark:border-blue-700"
+                        >
+                            Submit
+                        </button>
+
+                        <button
+                            type="reset"
+                            class="focus:outline-none text-gray-700 border border-gray-700 bg-transparent hover:bg-gray-700 focus:ring-4 focus:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 hover:text-white dark:text-white"
+                        >
+                            Reset
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

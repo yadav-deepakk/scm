@@ -36,7 +36,11 @@
             pageContent and script being passed into baseHTML.
         ------------------------------------------------------->
         <th:block data-th-replace="~{fragments/navbar.html :: navbar}"></th:block>
-        <th:block data-th-if="${loggedInUser}" data-th-replace="~{fragments/sidebar.html :: sidebar}"></th:block>
+
+        <th:block data-th-if="${loggedInUser}">
+            <th:block data-th-replace="~{fragments/sidebar.html :: sidebar}"></th:block>
+        </th:block>
+
         <th:block data-th-insert="${pageContent}"></th:block>
         <th:block data-th-replace="${script}"></th:block>
 
