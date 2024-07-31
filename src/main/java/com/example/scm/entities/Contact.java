@@ -34,6 +34,7 @@ public class Contact {
 	private String picture;
 	@Column(length = 10000)
 	private String description;
+	private Boolean isFavourite;
 	@ManyToOne
 	private User user;
 	@Builder.Default

@@ -30,6 +30,7 @@
                 <i class="fa-solid fa-circle-half-stroke"></i>
                 <span>Dark</span>
             </button>
+
             <th:block data-th-unless="${loggedInUser}">
                 <a
                     type="button"
@@ -61,9 +62,9 @@
                 />
 
                 <span
+                    data-th-if="${loggedInUser.profilePicture} == 'default.png'"
                     data-dropdown-toggle="userDropdown"
                     data-dropdown-placement="bottom-start"
-                    data-th-if="${loggedInUser.profilePicture} == 'default.png'"
                     class="flex items-center justify-center select-none ml-1 w-10 h-10 rounded-full cursor-pointer bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-200"
                     data-th-text="${loggedInUser.name.toUpperCase().charAt(0)}"
                 >
