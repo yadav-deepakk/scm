@@ -9,14 +9,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 public class AddContactForm {
     @NotBlank(message = "Please enter contact name.")
     @Size(min = 3, max = 15, message = "Enter between 3 to 5 letters.")
