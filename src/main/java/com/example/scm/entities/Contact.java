@@ -40,4 +40,5 @@ public class Contact {
 	@Builder.Default
 	@OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
 	private List<SocialLink> links = new ArrayList<>();
+	private String cloudinaryImagePublicId;
 }

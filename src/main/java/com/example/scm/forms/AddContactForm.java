@@ -1,5 +1,7 @@
 package com.example.scm.forms;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -32,17 +34,14 @@ public class AddContactForm {
     @Size(max = 1000, message = "Enter less than 1000 letters.")
     private String address;
 
-    @NotBlank(message = "Enter description.")
     @Size(max = 1000, message = "Enter less than 1000 letters.")
     private String description;
-
-    private String picture;
 
     private String websiteLink;
 
     private String linkedInLink;
 
-    private String profilePicture;
+    private MultipartFile contactImage;
 
     private Boolean isFavourite;
 }

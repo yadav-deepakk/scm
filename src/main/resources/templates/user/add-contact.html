@@ -7,11 +7,12 @@
             <div class="col-span-12 md:col-span-2 lg:col-span-3"></div>
             <div class="col-span-12 md:col-span-8 lg:col-span-6">
                 <form
-                    data-th-action="@{./addContact-handler}"
-                    data-th-object="${addContactForm}"
-                    class="mx-auto mt-4 mb-10 w-[95%] md:w-4/5 p-6 bg-white border border-gray-200 rounded-lg shadow space-y-4 dark:bg-gray-800 dark:border-gray-700"
-                    method="post"
                     novalidate
+                    method="post"
+                    enctype="multipart/form-data"
+                    data-th-object="${addContactForm}"
+                    data-th-action="@{/user/contacts/add}"
+                    class="mx-auto mt-4 mb-10 w-[95%] md:w-4/5 p-6 bg-white border border-gray-200 rounded-lg shadow space-y-4 dark:bg-gray-800 dark:border-gray-700"
                 >
                     <!-- Message will be displayed here -->
                     <div data-th-if="${session.message}">
@@ -182,15 +183,21 @@
 
                     <!-- Contact image -->
                     <div>
-                        <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">
+                        <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white" for="contactImage">
                             Upload Image
                         </label>
                         <input
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="user_avatar_help"
-                            id="user_avatar"
                             type="file"
+                            name="contactImage"
+                            id="contactImage"
+                            data-th-field="*{contactImage}"
                         />
+                        <span
+                            data-th-if="${#fields.hasErrors('contactImage')}"
+                            data-th-errors="*{contactImage}"
+                            class="text-sm font-medium tracking-wide text-red-500 dark:text-red-800"
+                        ></span>
                     </div>
 
                     <!-- Mark favourite -->
