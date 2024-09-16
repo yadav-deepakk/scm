@@ -196,8 +196,21 @@
                         <span
                             data-th-if="${#fields.hasErrors('contactImage')}"
                             data-th-errors="*{contactImage}"
-                            class="text-sm font-medium tracking-wide text-red-500 dark:text-red-800"
+                            class="mb-1 text-sm font-medium tracking-wide text-red-500 dark:text-red-800"
                         ></span>
+                        <div
+                            id="img-preview-div"
+                            class="mt-2 hidden rounded-md relative border-2 border-gray-200 shadow-md overflow-hidden dark:border-gray-900"
+                        >
+                            <span
+                                id="img-preview-close"
+                                alt="close image preview"
+                                class="absolute left-2 text-xl mt-2 px-3 py-1 rounded-md cursor-pointer bg-slate-200 text-gray-800 hover:bg-slate-300 dark:bg-slate-300 dark:text-slate-400 hover:dark:bg-slate-100 hover:text-gray-900"
+                            >
+                                &times;
+                            </span>
+                            <img class="rounded" src="" alt="contact-image" id="img-preview" />
+                        </div>
                     </div>
 
                     <!-- Mark favourite -->
@@ -239,4 +252,5 @@
     <script>
         console.log("This is Add Contact page!!!");
     </script>
+    <script data-th-src="@{/scripts/img-preview.js}"></script>
 </th:block>
