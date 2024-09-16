@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.scm.helper.AppConstants;
 import com.example.scm.services.ImageService;
 
 @Service
@@ -27,10 +28,16 @@ public class ImageServiceImpl implements ImageService {
             contactImage.getInputStream().read(imageData);
             cloudinary.uploader().upload(imageData, ObjectUtils.asMap("public_id", filename));
 
-            return cloudinary
+            String fileURL = cloudinary
                     .url()
-                    .transformation(new Transformation<>().width(500).height(500).crop("fill"))
-                    .generate();
+                    .transformation(
+                            new Transformation<>()
+                                    .width(AppConstants.CONTACT_IMAGE_WIDTH)
+                                    .height(AppConstants.CONTACT_IMAGE_HEIGHT)
+                                    .crop(AppConstants.CONTACT_IMAGE_CROP))
+                    .generate(filename);
+
+            return fileURL;
 
         } catch (IOException ioe) {
             ioe.printStackTrace();
