@@ -35,6 +35,8 @@ public class Contact {
 	@Column(length = 10000)
 	private String description;
 	private Boolean isFavourite;
+	private String websiteLink; 
+	private String linkedInLink; 
 	@ManyToOne
 	private User user;
 	@Builder.Default

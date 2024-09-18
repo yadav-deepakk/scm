@@ -1,5 +1,8 @@
 package com.example.scm.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -40,6 +43,21 @@ public class ContactController {
 
         org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ContactController.class);
 
+        @RequestMapping
+        public String allContactList(Model model, Authentication authentication) {
+
+                String email = helper.getEmailFromAuthentication(authentication);
+                User user = userService.getUserByEmail(email).get();
+                List<Contact> userContacts = new ArrayList<>();
+                userContacts = user.getContacts();
+                userContacts.forEach(contact -> {
+                        log.info("{}\n{}\n{}\n", contact.getName(), contact.getPicture(), contact.getPhoneNumber());
+                });
+                model.addAttribute("userContactList", userContacts.size() > 0 ? userContacts : null);
+                return "user/user-contacts";
+
+        }
+
         @RequestMapping(path = "/add-contact", method = RequestMethod.GET)
         public String addContactForm(Model model) {
                 log.info("Displaying Add Contact form.");
@@ -74,6 +92,8 @@ public class ContactController {
                                 .address(addContactForm.getAddress())
                                 .picture(null)
                                 .description(addContactForm.getDescription())
+                                .websiteLink(addContactForm.getWebsiteLink())
+                                .linkedInLink(addContactForm.getLinkedInLink())
                                 .isFavourite(addContactForm.getIsFavourite())
                                 .build();
 
@@ -103,4 +123,5 @@ public class ContactController {
 
                 return "user/add-contact";
         }
+
 }
