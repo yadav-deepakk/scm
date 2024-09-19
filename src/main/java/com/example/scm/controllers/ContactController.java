@@ -24,6 +24,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = "/user/contacts")
@@ -44,12 +45,19 @@ public class ContactController {
         org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ContactController.class);
 
         @RequestMapping
-        public String allContactList(Model model, Authentication authentication) {
+        public String allContactList(
+                        @RequestParam(defaultValue = "0") int page,
+                        @RequestParam(defaultValue = "10") int size,
+                        @RequestParam(defaultValue = "name") String sortBy,
+                        @RequestParam(defaultValue = "asc") String dir,
+                        Model model,
+                        Authentication authentication) {
 
                 String email = helper.getEmailFromAuthentication(authentication);
                 User user = userService.getUserByEmail(email).get();
                 List<Contact> userContacts = new ArrayList<>();
-                userContacts = user.getContacts();
+                // userContacts = user.getContacts();
+                contactService.getAllContactsOfUser(user, page, size, sortBy, dir);
                 userContacts.forEach(contact -> {
                         log.info("{}\n{}\n{}\n", contact.getName(), contact.getPicture(), contact.getPhoneNumber());
                 });
