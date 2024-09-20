@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import com.example.scm.entities.Contact;
 import com.example.scm.entities.User;
 import com.example.scm.enums.MessageType;
 import com.example.scm.forms.AddContactForm;
+import com.example.scm.helper.AppConstants;
 import com.example.scm.helper.Helper;
 import com.example.scm.models.Message;
 import com.example.scm.services.ContactService;
@@ -47,7 +49,7 @@ public class ContactController {
         @RequestMapping
         public String allContactList(
                         @RequestParam(defaultValue = "0") int page,
-                        @RequestParam(defaultValue = "10") int size,
+                        @RequestParam(defaultValue = AppConstants.PAGE_SIZE + "") int size,
                         @RequestParam(defaultValue = "name") String sortBy,
                         @RequestParam(defaultValue = "asc") String dir,
                         Model model,
@@ -55,13 +57,21 @@ public class ContactController {
 
                 String email = helper.getEmailFromAuthentication(authentication);
                 User user = userService.getUserByEmail(email).get();
-                List<Contact> userContacts = new ArrayList<>();
+                // List<Contact> userContacts = new ArrayList<>();
                 // userContacts = user.getContacts();
+
+                Page<Contact> currPageWithUserContacts = contactService.getAllContactsOfUser(user, page, size, sortBy,
+                                dir);
+
+                model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
+
                 contactService.getAllContactsOfUser(user, page, size, sortBy, dir);
-                userContacts.forEach(contact -> {
+                currPageWithUserContacts.forEach(contact -> {
                         log.info("{}\n{}\n{}\n", contact.getName(), contact.getPicture(), contact.getPhoneNumber());
                 });
-                model.addAttribute("userContactList", userContacts.size() > 0 ? userContacts : null);
+
+                model.addAttribute("userContactList",
+                                currPageWithUserContacts.getSize() > 0 ? currPageWithUserContacts : null);
                 return "user/user-contacts";
 
         }
