@@ -34,7 +34,7 @@ public class Helper {
             return username;
         }
 
-        System.out.println("Getting data from local database");
+        System.out.println("Getting user data from local database");
         return authentication.getName();
     }
 }

@@ -58,8 +58,8 @@
                     data-dropdown-placement="bottom-start"
                     class="ml-1 w-10 h-10 rounded-full cursor-pointer"
                     data-th-src="${loggedInUser.profilePicture}"
-                    onerror="this.error=null; this.src='https://commons.wikimedia.org/wiki/File:Windows_10_Default_Profile_Picture.svg';"
                     alt="User dropdown"
+                    onerror="this.src='https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg';"
                 />
 
                 <span
@@ -95,6 +95,14 @@
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             >
                                 Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                data-th-href="@{/user/contacts}"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            >
+                                Contacts
                             </a>
                         </li>
                     </ul>

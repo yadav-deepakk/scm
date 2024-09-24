@@ -8,5 +8,5 @@ public class AppConstants {
     public static final String CONTACT_IMAGE_CROP = "fill";
 
     // Pagination
-    public static final int PAGE_SIZE = 2;
+    public static final int PAGE_SIZE = 3;
 }

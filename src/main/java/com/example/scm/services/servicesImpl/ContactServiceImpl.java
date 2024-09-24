@@ -34,9 +34,33 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Page<Contact> getAllContactsOfUser(User user, int page, int size, String sortBy, String direction) {
-        Sort sort = sortBy.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
         return contactRepo.findByUser(user, pageable);
+    }
+
+    @Override
+    public Page<Contact> searchContactsOfUserByName(User user, String keyword, int page, int size,
+            String sortBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return contactRepo.findByUserAndNameContaining(user, keyword, pageable);
+    }
+
+    @Override
+    public Page<Contact> searchContactsOfUserByEmail(User user, String keyword, int page, int size,
+            String sortBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return contactRepo.findByUserAndEmailContaining(user, keyword, pageable);
+    }
+
+    @Override
+    public Page<Contact> searchContactsOfUserByPhoneNumber(User user, String keyword, int page, int size,
+            String sortBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return contactRepo.findByUserAndPhoneNumberContaining(user, keyword, pageable);
     }
 
     @Override

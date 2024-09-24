@@ -10,17 +10,26 @@ import com.example.scm.entities.User;
 
 public interface ContactService {
 
-    public Contact saveContact(Contact contact);
+        public Contact saveContact(Contact contact);
 
-    public List<Contact> getAllContacts();
+        public List<Contact> getAllContacts();
 
-    public Page<Contact> getAllContactsOfUser(User user, int page, int size, String sortBy, String direction);
+        public Page<Contact> getAllContactsOfUser(User user, int page, int size, String sortBy, String direction);
 
-    public Optional<Contact> getContactById(Long id);
+        public Page<Contact> searchContactsOfUserByName(User user, String nameKeyword, int page, int size,
+                        String sortBy, String direction);
 
-    public Contact updateContact(Contact contact);
+        public Page<Contact> searchContactsOfUserByEmail(User user, String emailKeyword, int page, int size,
+                        String sortBy, String direction);
 
-    public boolean deleteContact(Contact contact);
+        public Page<Contact> searchContactsOfUserByPhoneNumber(User user, String phoneKeyword, int page, int size,
+                        String sortBy, String direction);
 
-    public boolean deleteContact(Long id);
+        public Optional<Contact> getContactById(Long id);
+
+        public Contact updateContact(Contact contact);
+
+        public boolean deleteContact(Contact contact);
+
+        public boolean deleteContact(Long id);
 }

@@ -1,8 +1,5 @@
 package com.example.scm.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -15,10 +12,11 @@ import com.example.scm.entities.Contact;
 import com.example.scm.entities.User;
 import com.example.scm.enums.MessageType;
 import com.example.scm.forms.AddContactForm;
+import com.example.scm.forms.SearchContactForm;
 import com.example.scm.helper.AppConstants;
 import com.example.scm.helper.Helper;
 import com.example.scm.models.Message;
-import com.example.scm.services.ContactService;
+import com.example.scm.services.servicesImpl.ContactServiceImpl;
 import com.example.scm.services.servicesImpl.ImageServiceImpl;
 import com.example.scm.services.servicesImpl.UserServiceImpl;
 
@@ -33,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ContactController {
 
         @Autowired
-        private ContactService contactService;
+        private ContactServiceImpl contactService;
 
         @Autowired
         private ImageServiceImpl imgService;
@@ -57,6 +55,7 @@ public class ContactController {
 
                 String email = helper.getEmailFromAuthentication(authentication);
                 User user = userService.getUserByEmail(email).get();
+
                 // List<Contact> userContacts = new ArrayList<>();
                 // userContacts = user.getContacts();
 
@@ -72,8 +71,64 @@ public class ContactController {
 
                 model.addAttribute("userContactList",
                                 currPageWithUserContacts.getSize() > 0 ? currPageWithUserContacts : null);
+
+                model.addAttribute("searchContactForm", new SearchContactForm());
                 return "user/user-contacts";
 
+        }
+
+        @RequestMapping(value = "search")
+        public String SearchContactsOfUser(
+                        @RequestParam(defaultValue = "0") int page,
+                        @RequestParam(defaultValue = AppConstants.PAGE_SIZE + "") int size,
+                        @RequestParam(defaultValue = "name") String sortBy,
+                        @RequestParam(defaultValue = "asc") String dir,
+                        @Valid @ModelAttribute("searchContactForm") SearchContactForm searchForm,
+                        Authentication authentication,
+                        Model model
+
+        ) {
+                log.info("field:{}, keyword:{}", searchForm.getField(), searchForm.getKeyword());
+
+                if (searchForm.getField() == null
+                                || searchForm.getKeyword() == null
+                                || searchForm.getField().equalsIgnoreCase("")
+                                || searchForm.getKeyword().equalsIgnoreCase("")) {
+                        log.info("{}", "No selection of field and keyword, so");
+                        log.info("{}", "redirecting to all contacts");
+                        return "redirect:/user/contacts";
+                }
+
+                String email = helper.getEmailFromAuthentication(authentication);
+                User user = userService.getUserByEmail(email).get();
+
+                Page<Contact> currPageWithUserContacts = null;
+
+                if (searchForm.getField().equalsIgnoreCase("name")) {
+                        log.info("{}", "searching by name");
+                        currPageWithUserContacts = contactService.searchContactsOfUserByName(user,
+                                        searchForm.getKeyword(), page, size, sortBy, dir);
+                } else if (searchForm.getField().equalsIgnoreCase("email")) {
+                        log.info("{}", "searching by email");
+                        currPageWithUserContacts = contactService.searchContactsOfUserByEmail(user,
+                                        searchForm.getKeyword(), page, size, sortBy, dir);
+                } else if (searchForm.getField().equalsIgnoreCase("phoneNumber")) {
+                        log.info("{}", "searching by phoneNumber.");
+                        currPageWithUserContacts = contactService.searchContactsOfUserByPhoneNumber(user,
+                                        searchForm.getKeyword(), page, size, sortBy, dir);
+                }
+
+                log.info("currPageWithUserContacts {}", currPageWithUserContacts);
+                model.addAttribute("searchContactForm", searchForm);
+                if (currPageWithUserContacts != null) {
+                        model.addAttribute("userContactList",
+                                        currPageWithUserContacts.getContent().size() > 0 ? currPageWithUserContacts
+                                                        : null);
+                } else
+                        model.addAttribute("userContactList", null);
+                model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
+
+                return "user/search-results";
         }
 
         @RequestMapping(path = "/add-contact", method = RequestMethod.GET)

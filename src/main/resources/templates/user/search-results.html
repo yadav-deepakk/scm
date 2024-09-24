@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <th:block data-th-replace="~{base :: baseHTML(~{::link}, ~{::title}, ~{::#content}, ~{::script})}">
     <link rel="stylesheet" />
-    <title>SCM || Contacts</title>
+    <title>SCM||Search Contacts</title>
     <th:block id="content">
         <div class="grid grid-cols-12 mt-2">
             <div class="col-span-12 lg:col-span-2"></div>
             <div class="col-span-12 lg:col-span-8 flex flex-col align-middle justify-center sm:px-1 md:px-2">
-                <!-- heading -->
-                <h3 class="text-2xl tracking-wide text-slate-800 dark:text-slate-200 text-center">
-                    Contacts List Page
-                </h3>
-                <h6 class="text-sm text-slate-800 dark:text-slate-500 text-center">List of all your contacts...</h6>
+                <h1 class="text-center text-slate-800 text-xl dark:text-slate-200 sm:text-2xl">Search Results</h1>
 
                 <!-- Search field -->
                 <form
@@ -173,7 +169,7 @@
                     <ul class="inline-flex -space-x-px text-base h-10">
                         <li data-th-unless="${userContactList.first}">
                             <a
-                                data-th-href="@{'/user/contacts?size='+${pageSize}+'&page=' + ${userContactList.number-1}}"
+                                data-th-href="@{'/user/contacts/search?size='+${pageSize}+'&page=' + ${userContactList.number-1} + '&field=' + ${searchContactForm.field} + '&keyword=' + ${searchContactForm.keyword}}"
                                 class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                             >
                                 Previous
@@ -181,7 +177,7 @@
                         </li>
                         <li data-th-each="index :  ${#numbers.sequence(0,userContactList.totalPages-1)}">
                             <a
-                                data-th-href="@{/user/contacts(size=${pageSize}, page=${index})}"
+                                data-th-href="@{'/user/contacts/search?size='+${pageSize}+'&page=' + ${index} + '&field=' + ${searchContactForm.field} + '&keyword=' + ${searchContactForm.keyword}}"
                                 data-th-classappend="${index==userContactList.number? 'bg-blue-50  dark:bg-gray-600' : 'bg-white dark:bg-gray-800'}"
                                 class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                             >
@@ -191,7 +187,7 @@
 
                         <li data-th-unless="${userContactList.last}">
                             <a
-                                data-th-href="@{'/user/contacts?size='+${pageSize}+'&page=' + ${userContactList.number+1}}"
+                                data-th-href="@{'/user/contacts/search?size='+${pageSize}+'&page=' + ${userContactList.number+1} + '&field=' + ${searchContactForm.field} + '&keyword=' + ${searchContactForm.keyword}}"
                                 class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                             >
                                 Next
@@ -200,23 +196,21 @@
                     </ul>
                 </nav>
 
+                <!-- when contacts are empty -->
                 <div data-th-unless="${userContactList}" class="mt-4 flex flex-col align-middle justify-items-center">
-                    <h1 class="text-3xl sm:text-2xl text-slate-500 dark:text-slate-700 text-center">
-                        Your Contact List is EMPTY!
-                    </h1>
-                    <h6 class="text-sm text-slate-500 dark:text-slate-700 text-center">Add contacts here...</h6>
+                    <h1 class="text-3xl sm:text-2xl text-slate-500 text-center">No contacts match search criteria!</h1>
                     <a
                         type="button"
-                        data-th-href="@{/user/contacts/add-contact}"
+                        data-th-href="@{/user/contacts}"
                         class="mt-2 focus:outline-none text-white max-w-fit self-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                     >
-                        Add Contact
+                        Go to all Contacts
                     </a>
                 </div>
             </div>
         </div>
     </th:block>
     <script>
-        console.log("This is All Contacts page!!!");
+        console.log("This is Search page!!!");
     </script>
 </th:block>
