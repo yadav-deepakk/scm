@@ -1162,6 +1162,10 @@ video {
   border-radius: 0.75rem;
 }
 
+.rounded-sm {
+  border-radius: 0.125rem;
+}
+
 .rounded-e-lg {
   border-start-end-radius: 0.5rem;
   border-end-end-radius: 0.5rem;
@@ -2245,6 +2249,11 @@ video {
 .dark\:border-gray-900:where(.dark, .dark *) {
   --tw-border-opacity: 1;
   border-color: rgb(17 24 39 / var(--tw-border-opacity));
+}
+
+.dark\:border-slate-900:where(.dark, .dark *) {
+  --tw-border-opacity: 1;
+  border-color: rgb(15 23 42 / var(--tw-border-opacity));
 }
 
 .dark\:border-s-gray-700:where(.dark, .dark *) {
