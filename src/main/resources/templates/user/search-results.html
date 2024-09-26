@@ -3,6 +3,8 @@
     <link rel="stylesheet" />
     <title>SCM||Search Contacts</title>
     <th:block id="content">
+        <th:block data-th-replace="~{fragments/contact-modal :: contactModal}"> </th:block>
+
         <div class="grid grid-cols-12 mt-2">
             <div class="col-span-12 lg:col-span-2"></div>
             <div class="col-span-12 lg:col-span-8 flex flex-col align-middle justify-center sm:px-1 md:px-2">
@@ -145,14 +147,19 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 space-x-2">
-                                    <a href="#" class="font-medim">
-                                        <i class="fa-solid fa-envelope text-red-600"></i>
+                                    <a
+                                        th:onclick="launchModelWithContactDetails([[${userContact.id}]])"
+                                        data-modal-target="contact-modal"
+                                        data-modal-toggle="contact-modal"
+                                        class="font-medim"
+                                    >
+                                        <i class="fa-solid fa-eye text-slate-800 dark:text-slate-400"></i>
                                     </a>
-                                    <a href="#" class="font-medim">
-                                        <i class="fa-solid fa-phone-volume text-teal-800 dark:text-teal-600"></i>
+                                    <a class="font-medim">
+                                        <i class="fa-solid fa-pen-to-square text-slate-800 dark:text-slate-400"></i>
                                     </a>
-                                    <a href="#" class="font-medim">
-                                        <i class="fa-solid fa-pen-to-square text-blue-800 dark:text-blue-600"></i>
+                                    <a class="font-medim">
+                                        <i class="fa-solid fa-trash text-red-700 dark:text-red-500"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -213,4 +220,5 @@
     <script>
         console.log("This is Search page!!!");
     </script>
+    <script data-th-src="@{/scripts/fetch-contact.js}"></script>
 </th:block>
