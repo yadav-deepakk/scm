@@ -15,7 +15,7 @@
                     method="post"
                     data-th-action="@{/user/contacts/search}"
                     data-th-object="${searchContactForm}"
-                    class="mt-4 flex space-x-2 align-middle justify-center"
+                    class="mt-4 mb-2 flex space-x-2 align-middle justify-center"
                     novalidate
                 >
                     <!-- drop down -->
@@ -89,6 +89,12 @@
                     </div>
                 </form>
 
+                <!-- Message will be displayed here -->
+                <div data-th-if="${session.message}">
+                    <th:block data-th-replace="~{fragments/messages::messageFragment}"> </th:block>
+                    <th:block data-th-text="${@sessionUtilityBean.removeMessage()}"> </th:block>
+                </div>
+
                 <!-- table -->
                 <div
                     class="mt-4 overflow-x-auto space-y-2 shadow-md sm:rounded-lg dark:bg-gray-700"
@@ -147,20 +153,20 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 space-x-2">
-                                    <a
+                                    <button
                                         th:onclick="launchModelWithContactDetails([[${userContact.id}]])"
                                         data-modal-target="contact-modal"
                                         data-modal-toggle="contact-modal"
                                         class="font-medim"
                                     >
                                         <i class="fa-solid fa-eye text-slate-800 dark:text-slate-400"></i>
-                                    </a>
-                                    <a class="font-medim">
+                                    </button>
+                                    <button class="font-medim">
                                         <i class="fa-solid fa-pen-to-square text-slate-800 dark:text-slate-400"></i>
-                                    </a>
-                                    <a class="font-medim">
+                                    </button>
+                                    <button class="font-medim" th:onclick="deleteContact([[${userContact.id}]])">
                                         <i class="fa-solid fa-trash text-red-700 dark:text-red-500"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -220,5 +226,5 @@
     <script>
         console.log("This is Search page!!!");
     </script>
-    <script data-th-src="@{/scripts/fetch-contact.js}"></script>
+    <script data-th-src="@{/scripts/contact.js}"></script>
 </th:block>

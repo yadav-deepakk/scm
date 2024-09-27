@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.scm.entities.Contact;
 import com.example.scm.entities.User;
@@ -185,16 +186,23 @@ public class ContactController {
                         contact.setPicture(fileURL);
                         contact.setCloudinaryImagePublicId(filename);
                 }
-
                 contactService.saveContact(contact);
-
                 Message msg = Message.builder()
                                 .messageContent("Contact Added Succesfully.")
                                 .messageType(MessageType.green)
                                 .build();
                 session.setAttribute("message", msg);
-
                 return "user/add-contact";
+        }
+
+        @RequestMapping(path = "/delete/{contactId}", method = RequestMethod.GET)
+        public String deleteContactById(@PathVariable Long contactId, HttpSession session) {
+                // contactService.deleteContact(contactId);
+                log.info("contactId {} deleted", contactId);
+                session.setAttribute("message",
+                                Message.builder().messageContent("Contact is Deleted successfully !! ")
+                                                .messageType(MessageType.green).build());
+                return "redirect:/user/contacts";
         }
 
 }

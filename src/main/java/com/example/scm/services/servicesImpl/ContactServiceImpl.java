@@ -77,13 +77,13 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public boolean deleteContact(Long id) {
         contactRepo.deleteById(id);
-        return true;
+        return (this.getContactById(id).isPresent()) ? false : true;
     }
 
     @Override
     public boolean deleteContact(Contact contact) {
         contactRepo.delete(contact);
-        return true;
+        return (this.getContactById(contact.getId()).isPresent()) ? false : true;
     }
 
 }

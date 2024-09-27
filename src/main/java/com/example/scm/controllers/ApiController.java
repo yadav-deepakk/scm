@@ -19,7 +19,7 @@ public class ApiController {
     public ContactServiceImpl contactService;
 
     @RequestMapping(path = "/contacts/{contactId}", method = RequestMethod.GET)
-    public Contact requestMethodName(@PathVariable Long contactId) {
+    public Contact returnContactById(@PathVariable Long contactId) {
         Optional<Contact> contact = contactService.getContactById(contactId);
         return contact.isPresent() ? contact.get() : null;
     }
