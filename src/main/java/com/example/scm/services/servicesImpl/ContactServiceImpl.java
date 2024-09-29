@@ -84,6 +84,7 @@ public class ContactServiceImpl implements ContactService {
     public boolean deleteContact(Contact contact) {
         contactRepo.delete(contact);
         return (this.getContactById(contact.getId()).isPresent()) ? false : true;
+
     }
 
 }

@@ -165,9 +165,9 @@
                                     >
                                         <i class="fa-solid fa-eye text-slate-800 dark:text-slate-400"></i>
                                     </button>
-                                    <button class="font-medim">
+                                    <a data-th-href="@{'/user/contacts/view/' + ${userContact.id}}" class="font-medim">
                                         <i class="fa-solid fa-pen-to-square text-slate-800 dark:text-slate-400"></i>
-                                    </button>
+                                    </a>
                                     <button class="font-medim" th:onclick="deleteContact([[${userContact.id}]])">
                                         <i class="fa-solid fa-trash text-red-700 dark:text-red-500"></i>
                                     </button>

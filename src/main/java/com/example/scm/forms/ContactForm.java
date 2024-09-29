@@ -17,7 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AddContactForm {
+public class ContactForm {
     @NotBlank(message = "Please enter contact name.")
     @Size(min = 3, max = 15, message = "Enter between 3 to 5 letters.")
     private String name;
@@ -41,7 +41,9 @@ public class AddContactForm {
 
     private String linkedInLink;
 
+    private Boolean isFavourite;
+
     private MultipartFile contactImage;
 
-    private Boolean isFavourite;
+    private String picture;
 }
