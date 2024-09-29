@@ -221,7 +221,7 @@ public class ContactController {
     @RequestMapping(path = "/update-handler/{contactId}", method = RequestMethod.POST)
     String updateContactFormHandler(
             @PathVariable Long contactId,
-            @ModelAttribute("updateContactForm") ContactForm form,
+            @Valid @ModelAttribute("updateContactForm") ContactForm form,
             BindingResult bindingResult,
             Model model,
             HttpSession session
