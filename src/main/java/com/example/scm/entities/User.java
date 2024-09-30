@@ -2,6 +2,7 @@ package com.example.scm.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,11 +55,15 @@ public class User implements UserDetails {
 
     @Builder.Default
     @Getter(value = AccessLevel.NONE)
-    private boolean enabled = true;
+    private boolean enabled = false;
     @Builder.Default
     private boolean phoneVerified = false;
     @Builder.Default
     private boolean emailVerified = false;
+    private Date emailOTPIssuedAt;
+    private String emailOTP;
+    private String forgetPassLink;
+    private String forgetPassLinkIssuedAt;
 
     @Enumerated(EnumType.STRING)
     @Builder.Default

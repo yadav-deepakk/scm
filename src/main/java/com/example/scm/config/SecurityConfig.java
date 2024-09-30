@@ -22,6 +22,9 @@ public class SecurityConfig {
     @Autowired
     private OAuth2LoginSuccess oAuthSuccessHandler;
 
+    @Autowired
+    private AuthFailureHandler authFailureHandler;
+
     @Bean
     public DaoAuthenticationProvider authManager() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -57,6 +60,7 @@ public class SecurityConfig {
                     .successForwardUrl("/user/profile")
                     .usernameParameter("email")
                     .passwordParameter("password");
+            // .failureHandler(authFailureHandler);
         });
 
         http.logout(logoutConfig -> {
