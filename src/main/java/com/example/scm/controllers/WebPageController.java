@@ -1,8 +1,5 @@
 package com.example.scm.controllers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,16 +20,22 @@ import com.example.scm.services.servicesImpl.UserServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+import com.example.scm.services.servicesImpl.MailSenderImpl;
+
 @Controller
 public class WebPageController {
 
-	@Autowired
-	private UserServiceImpl userService;
+	org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(WebPageController.class);
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private final UserServiceImpl userService;
+	private final PasswordEncoder passwordEncoder;
+	private final MailSenderImpl mailSender;
 
-	Logger log = LoggerFactory.getLogger(WebPageController.class);
+	public WebPageController(UserServiceImpl userService, PasswordEncoder passwordEncoder, MailSenderImpl mailSender) {
+		this.userService = userService;
+		this.passwordEncoder = passwordEncoder;
+		this.mailSender = mailSender;
+	}
 
 	// index/home page
 	@RequestMapping({ "/", "/home" })
@@ -90,14 +93,11 @@ public class WebPageController {
 			BindingResult rBindingResult, HttpSession session) {
 		log.info("Processing User Registration.");
 
-		String message = "Registration successful.";
-		MessageType type = MessageType.green;
-
 		if (rBindingResult.hasErrors()) {
 			log.info("Form has errors");
-			Message msg = Message.builder().messageContent("You have errors, please correct and resubmit!")
-					.messageType(MessageType.red).build();
-			session.setAttribute("message", msg);
+			session.setAttribute("message",
+					Message.builder().messageContent("You have errors, please correct and resubmit!")
+							.messageType(MessageType.red).build());
 			return new ModelAndView("/signup");
 		}
 
@@ -115,8 +115,17 @@ public class WebPageController {
 
 		userService.saveUser(user);
 
-		Message msg = Message.builder().messageContent(message).messageType(type).build();
-		session.setAttribute("message", msg);
+		String msg = "Registration Successful. ";
+
+		try {
+			mailSender.sendEmailVerificationMail(user);
+			msg += "Verification email has been send.";
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.info("error in sending verification email.");
+			msg += "Error in sending verification email.";
+		}
+		session.setAttribute("message", Message.builder().messageContent(msg).messageType(MessageType.green).build());
 		return new ModelAndView(new RedirectView("/signup"));
 	}
 

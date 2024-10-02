@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.example.scm.entities.User;
@@ -15,6 +18,9 @@ import com.example.scm.services.UserService;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
+
+    org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserRepo userRepo;
 
@@ -71,5 +77,31 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepo.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("No such user found " + username));
+    }
+
+    @Override
+    public String getEmailFromAuthentication(Authentication authentication) {
+        if (authentication instanceof OAuth2AuthenticationToken) { // oauth login
+            var clientId = ((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId();
+            var oauth2User = (OAuth2User) authentication.getPrincipal();
+            String username = null;
+            switch (clientId) {
+                case "google":
+                    username = oauth2User.getAttribute("email");
+                    break;
+                case "github":
+                    username = oauth2User.getAttribute("email") == null
+                            ? oauth2User.getAttribute("login") + "@gmail.com"
+                            : oauth2User.getAttribute("email");
+                    break;
+                default:
+                    log.error("unknown login method");
+                    break;
+            }
+            return username;
+        }
+
+        System.out.println("Getting user data from local database");
+        return authentication.getName();
     }
 }

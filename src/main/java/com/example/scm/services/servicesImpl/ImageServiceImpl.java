@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
-import com.example.scm.helper.AppConstants;
+import com.example.scm.constants.AppConstants;
 import com.example.scm.services.ImageService;
 
 @Service

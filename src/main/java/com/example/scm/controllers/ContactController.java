@@ -9,13 +9,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.example.scm.constants.AppConstants;
 import com.example.scm.entities.Contact;
 import com.example.scm.entities.User;
 import com.example.scm.enums.MessageType;
 import com.example.scm.forms.ContactForm;
 import com.example.scm.forms.SearchContactForm;
-import com.example.scm.helper.AppConstants;
-import com.example.scm.helper.Helper;
 import com.example.scm.models.Message;
 import com.example.scm.services.servicesImpl.ContactServiceImpl;
 import com.example.scm.services.servicesImpl.ImageServiceImpl;
@@ -40,15 +39,12 @@ public class ContactController {
     @Autowired
     private UserServiceImpl userService;
 
-    @Autowired
-    private Helper helper;
-
     org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ContactController.class);
 
     @RequestMapping
     public String allContactList(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = AppConstants.PAGE_SIZE + "") int size,
+            @RequestParam(defaultValue = AppConstants.CONTACT_PAGE_SIZE + "") int size,
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "asc") String dir,
             Model model,
@@ -56,7 +52,7 @@ public class ContactController {
 
     ) {
 
-        String email = helper.getEmailFromAuthentication(authentication);
+        String email = userService.getEmailFromAuthentication(authentication);
         User user = userService.getUserByEmail(email).get();
 
         // List<Contact> userContacts = new ArrayList<>();
@@ -65,7 +61,7 @@ public class ContactController {
         Page<Contact> currPageWithUserContacts = contactService.getAllContactsOfUser(user, page, size, sortBy,
                 dir);
 
-        model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
+        model.addAttribute("pageSize", AppConstants.CONTACT_PAGE_SIZE);
 
         contactService.getAllContactsOfUser(user, page, size, sortBy, dir);
         currPageWithUserContacts.forEach(contact -> {
@@ -83,7 +79,7 @@ public class ContactController {
     @RequestMapping(value = "search")
     public String SearchContactsOfUser(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = AppConstants.PAGE_SIZE + "") int size,
+            @RequestParam(defaultValue = AppConstants.CONTACT_PAGE_SIZE + "") int size,
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "asc") String dir,
             @Valid @ModelAttribute("searchContactForm") SearchContactForm searchForm,
@@ -102,7 +98,7 @@ public class ContactController {
             return "redirect:/user/contacts";
         }
 
-        String email = helper.getEmailFromAuthentication(authentication);
+        String email = userService.getEmailFromAuthentication(authentication);
         User user = userService.getUserByEmail(email).get();
 
         Page<Contact> currPageWithUserContacts = null;
@@ -129,7 +125,7 @@ public class ContactController {
         } else
             model.addAttribute("userContactList", null);
 
-        model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
+        model.addAttribute("pageSize", AppConstants.CONTACT_PAGE_SIZE);
 
         return "user/search-results";
     }
@@ -176,7 +172,7 @@ public class ContactController {
                 .build();
 
         // get currently loggedInUser.
-        String email = helper.getEmailFromAuthentication(authentication);
+        String email = userService.getEmailFromAuthentication(authentication);
         User user = userService.getUserByEmail(email).get();
 
         contact.setUser(user);
@@ -277,11 +273,10 @@ public class ContactController {
     public String deleteContactById(@PathVariable Long contactId, HttpSession session) {
         Contact contact = contactService.getContactById(contactId).get();
         final String imageUUID = contact.getCloudinaryImagePublicId();
-        if (imageUUID != null && !imageUUID.equalsIgnoreCase("")) {
+        if (!(imageUUID == null || imageUUID.equalsIgnoreCase(""))) {
             imgService.deleteImage(imageUUID);
         }
-
-        // contactService.deleteContact(contactId);
+        contactService.deleteContact(contactId);
         session.setAttribute("message", Message.builder()
                 .messageContent("Contact is Deleted successfully !!")
                 .messageType(MessageType.green).build());

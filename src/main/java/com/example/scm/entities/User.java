@@ -60,10 +60,11 @@ public class User implements UserDetails {
     private boolean phoneVerified = false;
     @Builder.Default
     private boolean emailVerified = false;
+    private String nonce;
     private Date emailOTPIssuedAt;
     private String emailOTP;
-    private String forgetPassLink;
-    private String forgetPassLinkIssuedAt;
+    private Date forgetPassLinkIssuedAt;
+    private String forgetPassOTP;
 
     @Enumerated(EnumType.STRING)
     @Builder.Default

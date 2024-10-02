@@ -1,6 +1,5 @@
 package com.example.scm.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -16,14 +15,16 @@ import com.example.scm.services.servicesImpl.UserServiceImpl;
 @Configuration
 public class SecurityConfig {
 
-    @Autowired
     private UserServiceImpl userDetailsService;
-
-    @Autowired
     private OAuth2LoginSuccess oAuthSuccessHandler;
+    private FormLoginFailureHandler authFailureHandler;
 
-    @Autowired
-    private AuthFailureHandler authFailureHandler;
+    public SecurityConfig(UserServiceImpl userDetailsService, OAuth2LoginSuccess oAuthSuccessHandler,
+            FormLoginFailureHandler authFailureHandler) {
+        this.userDetailsService = userDetailsService;
+        this.oAuthSuccessHandler = oAuthSuccessHandler;
+        this.authFailureHandler = authFailureHandler;
+    }
 
     @Bean
     public DaoAuthenticationProvider authManager() {
@@ -59,8 +60,8 @@ public class SecurityConfig {
                     .loginProcessingUrl("/authenticate")
                     .successForwardUrl("/user/profile")
                     .usernameParameter("email")
-                    .passwordParameter("password");
-            // .failureHandler(authFailureHandler);
+                    .passwordParameter("password")
+                    .failureHandler(authFailureHandler);
         });
 
         http.logout(logoutConfig -> {

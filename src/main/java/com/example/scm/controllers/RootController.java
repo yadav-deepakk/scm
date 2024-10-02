@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.example.scm.entities.User;
-import com.example.scm.helper.Helper;
 import com.example.scm.services.servicesImpl.UserServiceImpl;
 
 @ControllerAdvice
@@ -15,9 +14,6 @@ public class RootController {
 
     @Autowired
     private UserServiceImpl userService;
-
-    @Autowired
-    private Helper helper;
 
     org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(RootController.class);
 
@@ -28,7 +24,7 @@ public class RootController {
 
         log.info("Adding user details to the model.");
 
-        String email = helper.getEmailFromAuthentication(authentication);
+        String email = userService.getEmailFromAuthentication(authentication);
         User user = userService.getUserByEmail(email).get();
 
         log.info("{}", user);

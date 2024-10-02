@@ -3,6 +3,8 @@ package com.example.scm.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.Authentication;
+
 import com.example.scm.entities.User;
 
 public interface UserService {
@@ -24,5 +26,7 @@ public interface UserService {
     public boolean deleteUser(Long id);
 
     public boolean deleteUser(User user);
+
+    public String getEmailFromAuthentication(Authentication authentication);
 
 }
