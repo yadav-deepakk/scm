@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>VERIFY EMAIL</title>
-    </head>
-    <body>
-        <h1>VERIFIED EMAIL</h1>
-        <h1>UN-VERIFIED EMAIL</h1>
-    </body>
-</html>
+<th:block data-th-replace="~{base :: baseHTML(~{::link}, ~{::title}, ~{::#content}, ~{::script})}">
+    <link rel="stylesheet" />
+    <title>SCM || Dashboard</title>
+    <th:block id="content">
+        <div class="sm:ml-4 pt-20 max-h-full">
+            <div class="flex justify-center flex-col items-center">
+                <div data-th-if="${session.message}">
+                    <th:block data-th-replace="~{fragments/messages::messageFragment}"> </th:block>
+                    <th:block data-th-text="${@sessionUtilityBean.removeMessage()}"> </th:block>
+                </div>
+            </div>
+        </div>
+    </th:block>
+    <script>
+        console.log("This is Verifaction email page!!!");
+    </script>
+</th:block>
