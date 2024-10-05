@@ -49,16 +49,16 @@ public class MailSenderImpl implements MailingService {
         int sixDigitOTP = 100000 + this.random.nextInt(900000); // Generate a random 6 digit number
         String nonce = java.util.UUID.randomUUID().toString();
         user.setForgetPassLinkIssuedAt(new Date());
-        user.setEmailOTP(Integer.toString(sixDigitOTP));
+        user.setForgetPassOTP(Integer.toString(sixDigitOTP));
         user.setNonce(nonce);
-
-        String LINK = AppConstants.FORGET_PASS_BASE_URL + "/auth/forget-pass?nonce=" + nonce +
+        userService.saveUser(user);
+        String LINK = AppConstants.FORGET_PASS_BASE_URL + "/auth/reset-pass?nonce=" + nonce +
                 "&email=" + user.getEmail() + "&otp=" + sixDigitOTP;
 
         String BODY = "Click on the link to reset your password. (" + LINK + ")";
 
         this.sendMail(user.getEmail(), SUBJECT, BODY);
-        throw new UnsupportedOperationException("Unimplemented method 'sendForgetPasswordLink'");
+        return true;
     }
 
     @Override

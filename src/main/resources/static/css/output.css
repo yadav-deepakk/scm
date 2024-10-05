@@ -1325,10 +1325,6 @@ video {
   padding-top: 5rem;
 }
 
-.pt-2 {
-  padding-top: 0.5rem;
-}
-
 .text-left {
   text-align: left;
 }
@@ -1688,10 +1684,6 @@ video {
     margin-left: 1rem;
   }
 
-  .sm\:ml-2 {
-    margin-left: 0.5rem;
-  }
-
   .sm\:rounded-lg {
     border-radius: 0.5rem;
   }
@@ -1751,6 +1743,10 @@ video {
 
   .md\:hidden {
     display: none;
+  }
+
+  .md\:w-1\/2 {
+    width: 50%;
   }
 
   .md\:w-1\/5 {
