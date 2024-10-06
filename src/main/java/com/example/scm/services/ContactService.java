@@ -14,6 +14,8 @@ public interface ContactService {
 
         public List<Contact> getAllContacts();
 
+        public List<Contact> getUserContacts(User user);
+
         public Page<Contact> getAllContactsOfUser(User user, int page, int size, String sortBy, String direction);
 
         public Page<Contact> searchContactsOfUserByName(User user, String nameKeyword, int page, int size,

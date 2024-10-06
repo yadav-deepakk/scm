@@ -178,8 +178,18 @@
                 </th:block>
 
                 <!-- Pagination -->
-                <nav data-th-if="${userContactList}" class="mt-2 ml-auto" aria-label="Page navigation ">
-                    <ul class="inline-flex -space-x-px text-base h-10">
+                <nav data-th-if="${userContactList}" class="mt-2" aria-label="Page navigation ">
+                    <div class="ml-auto float-left">
+                        <button
+                            th:onclick="downloadExcel([[${loggedInUser.userId}]])"
+                            type="button"
+                            class="mr-auto focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                        >
+                            <i class="mr-2 fa-solid fa-file-arrow-down"></i>
+                            Download All (xls)
+                        </button>
+                    </div>
+                    <ul class="float-right inline-flex -space-x-px text-base h-10">
                         <li data-th-unless="${userContactList.first}">
                             <a
                                 data-th-href="@{'/user/contacts/search?size='+${pageSize}+'&page=' + ${userContactList.number-1} + '&field=' + ${searchContactForm.field} + '&keyword=' + ${searchContactForm.keyword}}"
@@ -227,4 +237,5 @@
         console.log("This is Search page!!!");
     </script>
     <script data-th-src="@{/scripts/contact.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </th:block>

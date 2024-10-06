@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = "/user/contacts")
-public class ContactController {
+public class UserContactController {
 
     @Autowired
     private ContactServiceImpl contactService;
@@ -39,7 +39,7 @@ public class ContactController {
     @Autowired
     private UserServiceImpl userService;
 
-    org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ContactController.class);
+    org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserContactController.class);
 
     @RequestMapping
     public String allContactList(
@@ -58,8 +58,7 @@ public class ContactController {
         // List<Contact> userContacts = new ArrayList<>();
         // userContacts = user.getContacts();
 
-        Page<Contact> currPageWithUserContacts = contactService.getAllContactsOfUser(user, page, size, sortBy,
-                dir);
+        Page<Contact> currPageWithUserContacts = contactService.getAllContactsOfUser(user, page, size, sortBy, dir);
 
         model.addAttribute("pageSize", AppConstants.CONTACT_PAGE_SIZE);
 
@@ -105,16 +104,16 @@ public class ContactController {
 
         if (searchForm.getField().equalsIgnoreCase("name")) {
             log.info("{}", "searching by name");
-            currPageWithUserContacts = contactService.searchContactsOfUserByName(user,
-                    searchForm.getKeyword(), page, size, sortBy, dir);
+            currPageWithUserContacts = contactService.searchContactsOfUserByName(
+                    user, searchForm.getKeyword(), page, size, sortBy, dir);
         } else if (searchForm.getField().equalsIgnoreCase("email")) {
             log.info("{}", "searching by email");
-            currPageWithUserContacts = contactService.searchContactsOfUserByEmail(user,
-                    searchForm.getKeyword(), page, size, sortBy, dir);
+            currPageWithUserContacts = contactService.searchContactsOfUserByEmail(
+                    user, searchForm.getKeyword(), page, size, sortBy, dir);
         } else if (searchForm.getField().equalsIgnoreCase("phoneNumber")) {
             log.info("{}", "searching by phoneNumber.");
-            currPageWithUserContacts = contactService.searchContactsOfUserByPhoneNumber(user,
-                    searchForm.getKeyword(), page, size, sortBy, dir);
+            currPageWithUserContacts = contactService.searchContactsOfUserByPhoneNumber(
+                    user, searchForm.getKeyword(), page, size, sortBy, dir);
         }
 
         log.info("currPageWithUserContacts {}", currPageWithUserContacts);
@@ -283,5 +282,4 @@ public class ContactController {
         log.info("contactId {} deleted", contactId);
         return "redirect:/user/contacts";
     }
-
 }

@@ -33,6 +33,11 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
+    public List<Contact> getUserContacts(User u) {
+        return this.contactRepo.findByUser(u);
+    }
+
+    @Override
     public Page<Contact> getAllContactsOfUser(User user, int page, int size, String sortBy, String direction) {
         Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
