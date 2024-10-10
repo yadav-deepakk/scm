@@ -5,7 +5,115 @@
         <link rel="stylesheet" href="" />
     </head>
     <body>
-        <div id="content" class="dark:text-slate-300">This is Services page</div>
+        <div id="content" class="dark:text-slate-300">
+            <!-- Header -->
+            <header class="bg-blue-500 dark:bg-blue-800 text-white py-6 shadow-md">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-2xl md:text-4xl font-bold">Our Services</h1>
+                </div>
+            </header>
+
+            <!-- Services Section -->
+            <section class="container mx-auto px-4 py-4 md:py-12">
+                <div class="text-center mb-8">
+                    <h2 class="text-xl md:text-3xl font-semibold text-blue-700 dark:text-white">What We Offer</h2>
+                    <p class="text-sm md:text-lg text-gray-700 dark:text-gray-500">
+                        Explore the comprehensive services offered by Smart Contact Manager 2.0 to help you manage your
+                        contacts efficiently and effectively.
+                    </p>
+                </div>
+
+                <!-- Services Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Service 1 -->
+                    <div class="bg-white p-6 shadow-lg rounded-lg text-center">
+                        <img class="mx-auto mb-4 w-16 h-16" src="contact-sync-icon.png" alt="Contact Sync Icon" />
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Contact Sync</h3>
+                        <p class="text-gray-700 mb-4">
+                            Seamlessly synchronize your contacts across devices and platforms, ensuring you have the
+                            most up-to-date information at all times.
+                        </p>
+                        <button
+                            class="text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                        >
+                            Learn More
+                        </button>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="bg-white p-6 shadow-lg rounded-lg text-center">
+                        <img class="mx-auto mb-4 w-16 h-16" src="secure-storage-icon.png" alt="Secure Storage Icon" />
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Secure Storage</h3>
+                        <p class="text-gray-700 mb-4">
+                            Store your contact data securely with our advanced encryption and cloud storage solutions.
+                        </p>
+                        <button
+                            class="text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                        >
+                            Learn More
+                        </button>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="bg-white p-6 shadow-lg rounded-lg text-center">
+                        <img
+                            class="mx-auto mb-4 w-16 h-16"
+                            src="group-management-icon.png"
+                            alt="Group Management Icon"
+                        />
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Group Management</h3>
+                        <p class="text-gray-700 mb-4">
+                            Organize your contacts into groups for better management and efficient communication.
+                        </p>
+                        <button
+                            class="text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                        >
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Additional Services -->
+                <div class="mt-12">
+                    <h2 class="text-3xl font-semibold text-blue-700 mb-8 text-center">Additional Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Additional Service 1 -->
+                        <div class="bg-white p-6 shadow-lg rounded-lg text-center">
+                            <img class="mx-auto mb-4 w-16 h-16" src="analytics-icon.png" alt="Analytics Icon" />
+                            <h3 class="text-xl font-semibold text-blue-700 mb-2">Contact Analytics</h3>
+                            <p class="text-gray-700">
+                                Get insights into your contact management with detailed analytics and reports.
+                            </p>
+                        </div>
+
+                        <!-- Additional Service 2 -->
+                        <div class="bg-white p-6 shadow-lg rounded-lg text-center">
+                            <img class="mx-auto mb-4 w-16 h-16" src="backup-icon.png" alt="Backup Icon" />
+                            <h3 class="text-xl font-semibold text-blue-700 mb-2">Automated Backups</h3>
+                            <p class="text-gray-700">
+                                Schedule regular backups to ensure your contact data is always safe and recoverable.
+                            </p>
+                        </div>
+
+                        <!-- Additional Service 3 -->
+                        <div class="bg-white p-6 shadow-lg rounded-lg text-center">
+                            <img class="mx-auto mb-4 w-16 h-16" src="import-export-icon.png" alt="Import Export Icon" />
+                            <h3 class="text-xl font-semibold text-blue-700 mb-2">Import/Export Contacts</h3>
+                            <p class="text-gray-700">
+                                Easily import and export contact lists from various platforms with one click.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="bg-blue-500 text-white py-4">
+                <div class="container mx-auto px-4 text-center">
+                    <p class="text-sm">&copy; 2024 Smart Contact Manager 2.0. All Rights Reserved.</p>
+                </div>
+            </footer>
+        </div>
         <script>
             console.log("Services Page!!");
         </script>

@@ -1,10 +1,19 @@
 <div
     data-th-fragment="sidebar"
     id="sidebar"
-    class="fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800"
+    class="fixed space-y-2 top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800"
     tabindex="-1"
     aria-labelledby="sidebar-label"
 >
+    <img
+        data-th-src="${loggedInUser.profilePicture}"
+        class="mx-auto rounded-full w-36 h-36 shadow-2xl"
+        onerror="this.src='https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg';"
+        alt="Extra large avatar"
+    />
+
+    <div class="text-center text-slate-500 text-2xl">[[${loggedInUser.name}]]</div>
+
     <h5 id="sidebar-label" class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">Menu</h5>
     <button
         type="button"

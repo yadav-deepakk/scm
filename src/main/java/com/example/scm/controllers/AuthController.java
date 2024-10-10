@@ -86,7 +86,7 @@ public class AuthController {
                     .messageContent("Unknown error in email verification.")
                     .build());
         }
-        return "user/verify-email";
+        return "redirect:user/verify-email";
     }
 
     @RequestMapping(path = "/forget-pass", method = RequestMethod.GET)
@@ -237,7 +237,7 @@ public class AuthController {
                             .build());
         }
 
-        return "user/reset-pass.html";
+        return "redirect:user/reset-pass.html";
     }
 
 }

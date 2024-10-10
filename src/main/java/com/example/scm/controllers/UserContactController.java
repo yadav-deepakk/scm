@@ -191,7 +191,7 @@ public class UserContactController {
                 .messageType(MessageType.green)
                 .build();
         session.setAttribute("message", msg);
-        return "user/add-contact";
+        return "redirect:/user/contacts/add-contact";
     }
 
     @RequestMapping(path = "/view/{contactId}", method = RequestMethod.GET)

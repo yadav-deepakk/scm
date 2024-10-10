@@ -3,12 +3,59 @@
     <link rel="stylesheet" />
     <title>SCM || Profile</title>
     <th:block id="content">
-        <div class="sm:ml-4 pt-20 max-h-full">
+        <div class="sm:ml-4 pt-2 max-h-full">
             <div class="flex justify-center flex-col items-center">
-                <h1 class="text-slate-800 text-5xl dark:text-slate-200 sm:text-2xl">Welcome to Profile page</h1>
-                <p class="text-slate-500 dark:text-slate-600 sm:text-xl">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, ratione!
-                </p>
+                <h1 class="sm:text-2xl md:text-4xl text-slate-800 dark:text-slate-200">Welcome to Profile page</h1>
+            </div>
+        </div>
+        <div
+            class="mt-4 mx-auto w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+        >
+            <div class="flex justify-end px-4 pt-4"></div>
+            <div class="flex flex-col items-center pb-10">
+                <img
+                    class="w-24 h-24 mb-3 rounded-full shadow-lg"
+                    data-th-src="${loggedInUser.profilePicture}"
+                    onerror="this.src='https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg';"
+                />
+                <h5
+                    data-th-text="${loggedInUser.name}"
+                    class="mb-1 text-xl font-medium text-gray-900 dark:text-white"
+                ></h5>
+                <span data-th-text="${loggedInUser.email}" class="mb-3 text-sm text-gray-500 dark:text-gray-400">
+                </span>
+                <span data-th-text="${loggedInUser.about}" class="mb-3 text-sm text-gray-500 dark:text-gray-400">
+                </span>
+                <span class="mb-3 text-sm text-gray-500 dark:text-gray-400">
+                    Email Verified: [[${loggedInUser.emailVerified ? "YES":"NO"} ]]
+                </span>
+                <span class="mb-3 text-sm text-gray-500 dark:text-gray-400">
+                    Phone Verified: [[${loggedInUser.phoneVerified ? "YES":"NO"}]]
+                </span>
+                <div class="flex mt-2">
+                    <a
+                        data-th-href="@{/user/contacts}"
+                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        Contacts:[[${loggedInUser.contacts.size()}]]
+                    </a>
+                    <a
+                        data-th-href="@{/user/contacts/add-contact}"
+                        data-tooltip-target="add-bottom"
+                        data-tooltip-placement="bottom"
+                        class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    >
+                        <div
+                            id="add-bottom"
+                            role="tooltip"
+                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+                        >
+                            Add a contact
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                        +
+                    </a>
+                </div>
             </div>
         </div>
     </th:block>

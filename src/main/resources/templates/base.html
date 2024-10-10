@@ -3,7 +3,12 @@
 <!-- and link, title, pageContent, scripts will be passed. -->
 <!----------------------------------------------------------->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" data-th-fragment="baseHTML(link, title, pageContent, script)">
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    class="scroll-smooth"
+    data-th-fragment="baseHTML(link, title, pageContent, script)"
+>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,6 +34,8 @@
         ------------------------------------------------------->
         <th:block data-th-replace="${link}"></th:block>
         <th:block data-th-replace="${title}"></th:block>
+
+        <script data-th-src="@{/scripts/script.js}"></script>
     </head>
     <body class="bg-slate-50 dark:bg-slate-900">
         <!-----------------------------------------------------
@@ -46,6 +53,5 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script data-th-src="@{/scripts/script.js}"></script>
     </body>
 </html>
