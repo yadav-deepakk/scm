@@ -1,15 +1,14 @@
 package com.example.scm.controllers;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -21,34 +20,26 @@ import com.example.scm.enums.Provider;
 import com.example.scm.forms.ContactUsForm;
 import com.example.scm.forms.SignUpForm;
 import com.example.scm.models.Message;
-import com.example.scm.services.servicesImpl.UserServiceImpl;
+import com.example.scm.service.impl.MailSenderImpl;
+import com.example.scm.service.impl.UserServiceImpl;
+import com.example.scm.service.interfaces.ContactUsService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-import com.example.scm.services.ContactUsService;
-import com.example.scm.services.servicesImpl.MailSenderImpl;
-
-@Controller
-public class WebPageController {
-
-	org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(WebPageController.class);
+@Slf4j
+@RequiredArgsConstructor
+public @Controller class WebPageController {
 
 	private final UserServiceImpl userService;
 	private final PasswordEncoder passwordEncoder;
 	private final MailSenderImpl mailSender;
 	private final ContactUsService contactUsService;
 
-	public WebPageController(UserServiceImpl userService, PasswordEncoder passwordEncoder, MailSenderImpl mailSender,
-			ContactUsService contactUsService) {
-		this.userService = userService;
-		this.passwordEncoder = passwordEncoder;
-		this.mailSender = mailSender;
-		this.contactUsService = contactUsService;
-	}
-
 	// index/home page
-	@RequestMapping({ "/", "/home" })
+	@GetMapping({ "/", "/home" })
 	public String home(Model model) {
 		log.info("Displaying Home Page.");
 		model.addAttribute("homePage", true);
@@ -60,7 +51,7 @@ public class WebPageController {
 		return "home";
 	}
 
-	@RequestMapping(value = "/contact-us-handler", method = RequestMethod.POST)
+	@PostMapping("/contact-us-handler")
 	public String contactUsFormHandler(
 			@RequestParam(defaultValue = "home") String currPage,
 			@Valid @ModelAttribute("contactUsForm") ContactUsForm form,
@@ -89,7 +80,7 @@ public class WebPageController {
 	}
 
 	// about
-	@RequestMapping("/about")
+	@GetMapping("/about")
 	public String about(Model model) {
 		log.info("Displaying about page.");
 		model.addAttribute("aboutPage", true);
@@ -97,7 +88,7 @@ public class WebPageController {
 	}
 
 	// services
-	@RequestMapping("/services")
+	@GetMapping("/services")
 	public String services(Model model) {
 		log.info("Displaying services page.");
 		model.addAttribute("servicesPage", true);
@@ -105,7 +96,7 @@ public class WebPageController {
 	}
 
 	// contact
-	@RequestMapping("/contact")
+	@GetMapping("/contact")
 	public String contactUs(Model model) {
 		log.info("Displaying contact-us page.");
 		model.addAttribute("contactUsAction", "/contact-us-handler?currPage=contact");
@@ -114,7 +105,7 @@ public class WebPageController {
 	}
 
 	// login
-	@RequestMapping("/login")
+	@GetMapping("/login")
 	public String login(Model model) {
 		log.info("Displaying login page.");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -127,7 +118,7 @@ public class WebPageController {
 	}
 
 	// signup
-	@RequestMapping("/signup")
+	@GetMapping("/signup")
 	public String signup(Model model) {
 		log.info("Displaying signup page.");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -145,7 +136,7 @@ public class WebPageController {
 	 * SingUp Form Submit Handler
 	 * ===============================
 	 */
-	@RequestMapping(value = "/signup-handler", method = RequestMethod.POST)
+	@PostMapping("/signup-handler")
 	public ModelAndView registerUserHandler(@Valid @ModelAttribute("signupFormData") SignUpForm signUpFormData,
 			BindingResult rBindingResult, HttpSession session) {
 		log.info("Processing User Registration.");

@@ -1,4 +1,4 @@
-package com.example.scm.services.servicesImpl;
+package com.example.scm.service.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.scm.entities.User;
 import com.example.scm.repository.UserRepo;
-import com.example.scm.services.UserService;
+import com.example.scm.service.interfaces.UserService;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -81,8 +81,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public String getEmailFromAuthentication(Authentication authentication) {
-        if (authentication instanceof OAuth2AuthenticationToken) { // oauth login
-            var clientId = ((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId();
+        if (authentication instanceof OAuth2AuthenticationToken token) { // oauth login
+            var clientId = token.getAuthorizedClientRegistrationId();
             var oauth2User = (OAuth2User) authentication.getPrincipal();
             String username = null;
             switch (clientId) {

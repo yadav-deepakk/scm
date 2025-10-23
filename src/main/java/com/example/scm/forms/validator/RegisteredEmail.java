@@ -1,4 +1,4 @@
-package com.example.scm.forms.customValidator;
+package com.example.scm.forms.validator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

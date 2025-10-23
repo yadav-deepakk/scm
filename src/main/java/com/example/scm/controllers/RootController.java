@@ -1,36 +1,36 @@
 package com.example.scm.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.example.scm.entities.User;
-import com.example.scm.services.servicesImpl.UserServiceImpl;
+import com.example.scm.service.impl.UserServiceImpl;
 
-@ControllerAdvice
-public class RootController {
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-    @Autowired
-    private UserServiceImpl userService;
+@Slf4j
+@RequiredArgsConstructor
+public @ControllerAdvice class RootController {
 
-    org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(RootController.class);
+	private final UserServiceImpl userService;
 
-    @ModelAttribute
-    public void addLoggedInUserToModel(Authentication authentication, Model model) {
-        if (authentication == null)
-            return;
+	@ModelAttribute
+	public void addLoggedInUserToModel(Authentication authentication, Model model) {
+		if (authentication == null)
+			return;
 
-        log.info("Adding user details to the model.");
+		log.info("Adding user details to the model.");
 
-        String email = userService.getEmailFromAuthentication(authentication);
-        User user = userService.getUserByEmail(email).get();
+		String email = userService.getEmailFromAuthentication(authentication);
+		User user = userService.getUserByEmail(email).get();
 
-        log.info("{}", user);
-        log.info(user.getName());
-        log.info(user.getEmail());
+		log.info("{}", user);
+		log.info(user.getName());
+		log.info(user.getEmail());
 
-        model.addAttribute("loggedInUser", user);
-    }
+		model.addAttribute("loggedInUser", user);
+	}
 }

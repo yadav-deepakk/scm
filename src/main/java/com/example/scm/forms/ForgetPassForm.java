@@ -1,6 +1,6 @@
 package com.example.scm.forms;
 
-import com.example.scm.forms.customValidator.RegisteredEmail;
+import com.example.scm.forms.validator.RegisteredEmail;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

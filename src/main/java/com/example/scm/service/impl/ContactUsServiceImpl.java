@@ -1,4 +1,4 @@
-package com.example.scm.services.servicesImpl;
+package com.example.scm.service.impl;
 
 import java.util.List;
 
@@ -6,16 +6,14 @@ import org.springframework.stereotype.Service;
 
 import com.example.scm.entities.ContactUs;
 import com.example.scm.repository.ContactUsRepo;
-import com.example.scm.services.ContactUsService;
+import com.example.scm.service.interfaces.ContactUsService;
 
-@Service
-public class ContactUsServiceImpl implements ContactUsService {
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+public @Service class ContactUsServiceImpl implements ContactUsService {
 
     private final ContactUsRepo contactUsRepo;
-
-    public ContactUsServiceImpl(ContactUsRepo contactUsRepo) {
-        this.contactUsRepo = contactUsRepo;
-    }
 
     @Override
     public ContactUs saveMessage(ContactUs message) {

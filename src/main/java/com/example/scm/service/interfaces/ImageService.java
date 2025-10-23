@@ -1,4 +1,4 @@
-package com.example.scm.services;
+package com.example.scm.service.interfaces;
 
 import org.springframework.web.multipart.MultipartFile;
 

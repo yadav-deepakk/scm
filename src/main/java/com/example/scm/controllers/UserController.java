@@ -1,30 +1,33 @@
 package com.example.scm.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RequiredArgsConstructor
 @RequestMapping("/user")
-public class UserController {
+public @Controller class UserController {
 
-    org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserController.class);
+	@GetMapping("/profile")
+	public String profile() {
+		log.info("Displaiyng user profile page.");
+		return "user/profile";
+	}
 
-    @RequestMapping("/profile")
-    public String profile() {
-        log.info("Displaiyng user profile page.");
-        return "user/profile";
-    }
+	@GetMapping("/dashboard")
+	public String dashboard() {
+		log.info("Displaying user dashboard page.");
+		return "user/dashboard";
+	}
 
-    @RequestMapping("/dashboard")
-    public String dashboard() {
-        log.info("Displaying user dashboard page.");
-        return "user/dashboard";
-    }
-
-    @RequestMapping("/about")
-    public String about() {
-        log.info("Displaying user dashboard page.");
-        return "user/about";
-    }
+	@GetMapping("/about")
+	public String about() {
+		log.info("Displaying user dashboard page.");
+		return "user/about";
+	}
 
 }

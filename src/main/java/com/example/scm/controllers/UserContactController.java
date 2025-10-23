@@ -1,14 +1,11 @@
 package com.example.scm.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.*;
 import com.example.scm.constants.AppConstants;
 import com.example.scm.entities.Contact;
 import com.example.scm.entities.User;
@@ -16,32 +13,25 @@ import com.example.scm.enums.MessageType;
 import com.example.scm.forms.ContactForm;
 import com.example.scm.forms.SearchContactForm;
 import com.example.scm.models.Message;
-import com.example.scm.services.servicesImpl.ContactServiceImpl;
-import com.example.scm.services.servicesImpl.ImageServiceImpl;
-import com.example.scm.services.servicesImpl.UserServiceImpl;
+import com.example.scm.service.impl.ContactServiceImpl;
+import com.example.scm.service.impl.ImageServiceImpl;
+import com.example.scm.service.impl.UserServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-@Controller
+@Slf4j
+@RequiredArgsConstructor
 @RequestMapping(value = "/user/contacts")
-public class UserContactController {
+public @Controller class UserContactController {
 
-    @Autowired
-    private ContactServiceImpl contactService;
+    private final ContactServiceImpl contactService;
+    private final ImageServiceImpl imgService;
+    private final UserServiceImpl userService;
 
-    @Autowired
-    private ImageServiceImpl imgService;
-
-    @Autowired
-    private UserServiceImpl userService;
-
-    org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserContactController.class);
-
-    @RequestMapping
+    @GetMapping
     public String allContactList(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = AppConstants.CONTACT_PAGE_SIZE + "") int size,
@@ -75,7 +65,7 @@ public class UserContactController {
 
     }
 
-    @RequestMapping(value = "search")
+    @GetMapping("search")
     public String SearchContactsOfUser(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = AppConstants.CONTACT_PAGE_SIZE + "") int size,
@@ -129,17 +119,17 @@ public class UserContactController {
         return "user/search-results";
     }
 
-    @RequestMapping(path = "/add-contact", method = RequestMethod.GET)
+    @GetMapping("/add-contact")
     public String addContactForm(Model model) {
         log.info("Displaying Add Contact form.");
         model.addAttribute("addContactForm", new ContactForm());
         return "user/add-contact";
     }
 
-    @RequestMapping(path = "add", method = RequestMethod.POST)
+    @PostMapping("add")
     public String onAddContactFormSubmit(
             Authentication authentication,
-            @Valid @ModelAttribute("addContactForm") ContactForm addContactForm,
+            @Valid @ModelAttribute ContactForm addContactForm,
             BindingResult rBindingResult,
             HttpSession session
 
@@ -194,8 +184,8 @@ public class UserContactController {
         return "redirect:/user/contacts/add-contact";
     }
 
-    @RequestMapping(path = "/view/{contactId}", method = RequestMethod.GET)
-    String updateContactView(@PathVariable("contactId") Long contactId, Model model) {
+    @GetMapping("/view/{contactId}")
+    String updateContactView(@PathVariable Long contactId, Model model) {
         Contact contact = contactService.getContactById(contactId).get();
         ContactForm contactForm = ContactForm.builder()
                 .name(contact.getName())
@@ -213,7 +203,7 @@ public class UserContactController {
         return "user/update-contact";
     }
 
-    @RequestMapping(path = "/update-handler/{contactId}", method = RequestMethod.POST)
+    @PostMapping("/update-handler/{contactId}")
     String updateContactFormHandler(
             @PathVariable Long contactId,
             @Valid @ModelAttribute("updateContactForm") ContactForm form,
@@ -268,7 +258,7 @@ public class UserContactController {
         return "user/update-contact";
     }
 
-    @RequestMapping(path = "/delete/{contactId}", method = RequestMethod.GET)
+    @GetMapping("/delete/{contactId}")
     public String deleteContactById(@PathVariable Long contactId, HttpSession session) {
         Contact contact = contactService.getContactById(contactId).get();
         final String imageUUID = contact.getCloudinaryImagePublicId();
